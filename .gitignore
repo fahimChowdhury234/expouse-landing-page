@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+
+# Nuxt build output
+.nuxt
+.output
+.data
+.nitro
+.cache
+dist
+
+# Logs
+logs
+*.log
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Server rules with the maintenance preview token - keep private
+public/.htaccess
+
+# OS and editor files
+.DS_Store
+.fleet
+.idea
+.vscode

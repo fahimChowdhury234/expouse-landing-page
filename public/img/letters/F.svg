@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247.21 182.86">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .12;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill: #6267aa;
+      }
+
+      .cls-2 {
+        opacity: .6;
+      }
+
+      .cls-3 {
+        opacity: .4;
+      }
+
+      .cls-5 {
+        fill: #c0e0d9;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="247.21" height="182.86"/>
+  <g>
+    <g>
+      <path class="cls-2" d="M123.73,68.35h60.61V31h-82.19c-21.09,0-38.32,16.53-39.43,37.34h61.01Z"/>
+      <path class="cls-4" d="M62.66,68.35v2.15c0-.72.02-1.44.06-2.15h-.06Z"/>
+      <path class="cls-4" d="M62.72,68.35c-.04.71-.06,1.43-.06,2.15v39.61h60.82v-41.76h-60.76Z"/>
+      <polygon class="cls-3" points="184.34 68.35 123.73 68.35 123.73 74.02 123.73 110.1 184.55 110.1 184.55 68.35 184.34 68.35"/>
+      <rect class="cls-5" x="123.48" y="74.02" width=".25" height="36.08"/>
+      <rect class="cls-5" x="123.48" y="68.35" width=".25" height="5.67"/>
+    </g>
+    <rect class="cls-3" x="62.66" y="110.1" width="61.07" height="41.76"/>
+  </g>
+</svg>

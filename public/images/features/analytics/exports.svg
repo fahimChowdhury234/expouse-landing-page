@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" fill="none">
+  <defs>
+    <filter id="s" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1a1a2e" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <g font-family="Cairo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <rect width="960" height="600" fill="#ffffff"/>
+
+    <!-- Main card: staff permissions -->
+    <rect x="96.5" y="64.5" width="487" height="467" rx="16" fill="#ffffff" stroke="#e8e9ee"/>
+    <text x="124" y="104" font-size="18" font-weight="700" fill="#1f2430">Staff permissions</text>
+    <rect x="396" y="86" width="148" height="26" rx="13" fill="#f7f8fa"/>
+    <g stroke="#6b7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="410" y="97" width="12" height="9" rx="2"/>
+      <path d="M413 97v-2.5a3 3 0 0 1 6 0V97"/>
+    </g>
+    <text x="430" y="104" font-size="13" font-weight="600" fill="#4b5160">This event only</text>
+
+    <rect x="124.5" y="124.5" width="419" height="47" rx="10" fill="#ffffff" stroke="#e8e9ee"/>
+    <circle cx="150" cy="148" r="14" fill="#efedfc"/>
+    <text x="150" y="153" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4f46e5">SA</text>
+    <text x="174" y="153" font-size="15" font-weight="700" fill="#1f2430">Sara Ali<tspan font-size="14" font-weight="400" fill="#6b7280"> · Registration desk</tspan></text>
+    <path d="M520 145l5 5 5-5" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="124" y="192" width="420" height="34" rx="8" fill="#f7f8fa"/>
+    <g font-size="13" font-weight="600" fill="#6b7280">
+      <text x="140" y="214">Page</text>
+      <text x="376" y="214" text-anchor="middle">View</text>
+      <text x="446" y="214" text-anchor="middle">Edit</text>
+      <text x="516" y="214" text-anchor="middle">Export</text>
+    </g>
+
+    <!-- Rows -->
+    <g fill="#efedfc">
+      <rect x="124" y="242" width="36" height="36" rx="10"/>
+      <rect x="124" y="306" width="36" height="36" rx="10"/>
+      <rect x="124" y="370" width="36" height="36" rx="10"/>
+      <rect x="124" y="434" width="36" height="36" rx="10"/>
+    </g>
+    <g stroke="#6452E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="translate(132 250)">
+        <circle cx="8" cy="6.5" r="3.5"/><path d="M2 18c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/>
+        <path d="M14 3.2a3 3 0 0 1 0 6.2"/><path d="M16.5 12.8c1.6.8 2.5 2.6 2.5 5.2"/>
+      </g>
+      <g transform="translate(132 314)">
+        <path d="M1 6V3a2 2 0 0 1 2-2h3M14 1h3a2 2 0 0 1 2 2v3M19 14v3a2 2 0 0 1-2 2h-3M6 19H3a2 2 0 0 1-2-2v-3M5 10h10"/>
+      </g>
+      <g transform="translate(132 378)">
+        <path d="M2 8h16v10H2zM1 8l2.5-6h13L19 8M8 18v-5h4v5"/>
+      </g>
+      <g transform="translate(132 442)">
+        <path d="M3 18V11M10 18V3M17 18V14"/>
+      </g>
+    </g>
+    <g font-size="15" font-weight="600" fill="#1f2430">
+      <text x="174" y="257">Attendees</text>
+      <text x="174" y="321">Check-in</text>
+      <text x="174" y="385">Exhibitors</text>
+      <text x="174" y="449">Reports</text>
+    </g>
+    <g font-size="13" fill="#6b7280">
+      <text x="174" y="275">4,812 people</text>
+      <text x="174" y="339">Gates 1 - 4</text>
+      <text x="174" y="403">148 exhibitors</text>
+      <text x="174" y="467">Dashboards</text>
+    </g>
+    <path d="M124 292.5H544M124 356.5H544M124 420.5H544" stroke="#f0f1f4"/>
+
+    <!-- Toggles: on -->
+    <g fill="#6452E7">
+      <rect x="356" y="249" width="40" height="22" rx="11"/>
+      <rect x="426" y="249" width="40" height="22" rx="11"/>
+      <rect x="496" y="249" width="40" height="22" rx="11"/>
+      <rect x="356" y="313" width="40" height="22" rx="11"/>
+      <rect x="426" y="313" width="40" height="22" rx="11"/>
+      <rect x="356" y="377" width="40" height="22" rx="11"/>
+      <rect x="356" y="441" width="40" height="22" rx="11"/>
+    </g>
+    <g fill="#ffffff">
+      <circle cx="385" cy="260" r="8"/><circle cx="455" cy="260" r="8"/><circle cx="525" cy="260" r="8"/>
+      <circle cx="385" cy="324" r="8"/><circle cx="455" cy="324" r="8"/>
+      <circle cx="385" cy="388" r="8"/>
+      <circle cx="385" cy="452" r="8"/>
+    </g>
+    <!-- Toggles: off -->
+    <g fill="#e8e9ee">
+      <rect x="496" y="313" width="40" height="22" rx="11"/>
+      <rect x="426" y="377" width="40" height="22" rx="11"/>
+      <rect x="496" y="377" width="40" height="22" rx="11"/>
+      <rect x="426" y="441" width="40" height="22" rx="11"/>
+      <rect x="496" y="441" width="40" height="22" rx="11"/>
+    </g>
+    <g fill="#ffffff" stroke="#dcdee5">
+      <circle cx="507" cy="324" r="8"/>
+      <circle cx="437" cy="388" r="8"/><circle cx="507" cy="388" r="8"/>
+      <circle cx="437" cy="452" r="8"/><circle cx="507" cy="452" r="8"/>
+    </g>
+
+    <path d="M124 484.5H544" stroke="#e8e9ee"/>
+    <text x="124" y="512" font-size="13" fill="#9aa1ad">Changed by Nadia Rahman · 2 h ago</text>
+
+    <!-- Floating card: export -->
+    <g filter="url(#s)">
+      <rect x="564" y="156" width="300" height="304" rx="16" fill="#ffffff"/>
+    </g>
+    <rect x="564.5" y="156.5" width="299" height="303" rx="16" stroke="#e8e9ee"/>
+    <rect x="588" y="180" width="40" height="40" rx="10" fill="#efedfc"/>
+    <path d="M608 190v12m-5-5l5 5 5-5M601 209h14" stroke="#6452E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="640" y="197" font-size="16" font-weight="700" fill="#1f2430">Export attendees</text>
+    <text x="640" y="216" font-size="13" fill="#6b7280">4,812 rows · 14 columns</text>
+
+    <text x="588" y="256" font-size="13" font-weight="600" fill="#6b7280">Format</text>
+    <rect x="588.75" y="268.75" width="118.5" height="62.5" rx="10" fill="#f4f2fd" stroke="#6452E7" stroke-width="1.5"/>
+    <text x="604" y="296" font-size="15" font-weight="700" fill="#1f2430">Excel</text>
+    <text x="604" y="316" font-size="13" fill="#6b7280">.xlsx</text>
+    <circle cx="688" cy="290" r="7.25" fill="#ffffff" stroke="#6452E7" stroke-width="1.5"/>
+    <circle cx="688" cy="290" r="3.5" fill="#6452E7"/>
+
+    <rect x="720.5" y="268.5" width="119" height="63" rx="10" fill="#ffffff" stroke="#e8e9ee"/>
+    <text x="736" y="296" font-size="15" font-weight="700" fill="#1f2430">CSV</text>
+    <text x="736" y="316" font-size="13" fill="#6b7280">.csv</text>
+    <circle cx="820" cy="290" r="7.25" fill="#ffffff" stroke="#c9ccd4" stroke-width="1.5"/>
+
+    <rect x="588" y="352" width="18" height="18" rx="5" fill="#6452E7"/>
+    <path d="M592 361.5l3.2 3.2 6.6-6.6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="616" y="366" font-size="14" fill="#4b5160">Include check-in times</text>
+
+    <rect x="588" y="392" width="252" height="44" rx="10" fill="#6452E7"/>
+    <path d="M675 405v12m-5-5l5 5 5-5M668 424h14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="692" y="419" font-size="15" font-weight="700" fill="#ffffff">Download</text>
+  </g>
+</svg>

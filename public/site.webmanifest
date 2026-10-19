@@ -1,0 +1,13 @@
+{
+  "name": "EXPOUSE",
+  "short_name": "EXPOUSE",
+  "description": "Event software for exhibitions and conferences.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#6452E7",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

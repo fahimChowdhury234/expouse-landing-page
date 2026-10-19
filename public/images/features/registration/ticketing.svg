@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" fill="none">
+  <defs>
+    <filter id="s" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="600">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1a1a2e" flood-opacity=".13"/>
+    </filter>
+    <path id="tk" d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2zM14 5v2M14 11v2M14 17v2"/>
+  </defs>
+  <g font-family="Cairo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <rect width="960" height="600" fill="#ffffff"/>
+
+    <!-- Ticket list -->
+    <rect x="64.5" y="72.5" width="419" height="455" rx="16" fill="#ffffff" stroke="#e8e9ee"/>
+    <text x="88" y="110" font-size="18" font-weight="700" fill="#1f2430">Tickets</text>
+    <text x="88" y="132" font-size="13" fill="#6b7280">Gulf Build Expo 2026 · 4 types</text>
+    <rect x="270" y="93" width="190" height="26" rx="13" fill="#efedfc"/>
+    <text x="365" y="110.5" text-anchor="middle" font-size="13" font-weight="700" fill="#6452E7">Early bird until 31 Aug</text>
+    <path d="M65 150.5H483M88 238.5H460M88 326.5H460M88 414.5H460" stroke="#e8e9ee"/>
+
+    <!-- Early bird -->
+    <rect x="88" y="172" width="36" height="36" rx="10" fill="#efedfc"/>
+    <use href="#tk" transform="translate(97 181) scale(.75)" stroke="#6452E7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="138" y="186" font-size="15" font-weight="700" fill="#1f2430">Early bird</text>
+    <text x="138" y="206" font-size="13" fill="#6b7280">380 of 500 sold</text>
+    <rect x="138" y="216" width="162" height="6" rx="3" fill="#eef0f4"/>
+    <rect x="138" y="216" width="123" height="6" rx="3" fill="#6452E7"/>
+    <text x="460" y="186" text-anchor="end" font-size="15" font-weight="700" fill="#1f2430">OMR 15.000</text>
+    <text x="460" y="206" text-anchor="end" font-size="13" font-weight="600" fill="#4b5160">120 left</text>
+
+    <!-- Standard -->
+    <rect x="88" y="260" width="36" height="36" rx="10" fill="#e0f2fe"/>
+    <use href="#tk" transform="translate(97 269) scale(.75)" stroke="#0284c7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="138" y="274" font-size="15" font-weight="700" fill="#1f2430">Standard</text>
+    <text x="138" y="294" font-size="13" fill="#6b7280">1,420 of 3,000 sold</text>
+    <rect x="138" y="304" width="162" height="6" rx="3" fill="#eef0f4"/>
+    <rect x="138" y="304" width="77" height="6" rx="3" fill="#6452E7"/>
+    <text x="460" y="274" text-anchor="end" font-size="15" font-weight="700" fill="#1f2430">OMR 25.000</text>
+    <text x="460" y="294" text-anchor="end" font-size="13" font-weight="600" fill="#4b5160">1,580 left</text>
+
+    <!-- Group of 5 -->
+    <rect x="88" y="348" width="36" height="36" rx="10" fill="#ecfdf5"/>
+    <use href="#tk" transform="translate(97 357) scale(.75)" stroke="#059669" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="138" y="362" font-size="15" font-weight="700" fill="#1f2430">Group of 5</text>
+    <text x="138" y="382" font-size="13" fill="#6b7280">5 badges · 48 of 100 sold</text>
+    <rect x="138" y="392" width="162" height="6" rx="3" fill="#eef0f4"/>
+    <rect x="138" y="392" width="78" height="6" rx="3" fill="#6452E7"/>
+    <text x="460" y="362" text-anchor="end" font-size="15" font-weight="700" fill="#1f2430">OMR 100.000</text>
+    <text x="460" y="382" text-anchor="end" font-size="13" font-weight="600" fill="#4b5160">52 left</text>
+
+    <!-- VIP pass -->
+    <rect x="88" y="436" width="36" height="36" rx="10" fill="#fce7f3"/>
+    <use href="#tk" transform="translate(97 445) scale(.75)" stroke="#db2777" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="138" y="450" font-size="15" font-weight="700" fill="#1f2430">VIP pass</text>
+    <text x="138" y="470" font-size="13" fill="#6b7280">68 of 80 sold</text>
+    <rect x="138" y="480" width="162" height="6" rx="3" fill="#eef0f4"/>
+    <rect x="138" y="480" width="138" height="6" rx="3" fill="#f59e0b"/>
+    <text x="460" y="450" text-anchor="end" font-size="15" font-weight="700" fill="#1f2430">OMR 60.000</text>
+    <rect x="394" y="458" width="66" height="22" rx="11" fill="#fffbeb"/>
+    <text x="427" y="473.5" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309">12 left</text>
+
+    <!-- Checkout -->
+    <g filter="url(#s)">
+      <rect x="512" y="88" width="380" height="348" rx="16" fill="#ffffff"/>
+    </g>
+    <rect x="512.5" y="88.5" width="379" height="347" rx="16" stroke="#e8e9ee"/>
+    <text x="536" y="124" font-size="18" font-weight="700" fill="#1f2430">Checkout</text>
+    <text x="868" y="124" text-anchor="end" font-size="13" fill="#9aa1ad">Omar Saleh</text>
+    <text x="536" y="162" font-size="14" font-weight="600" fill="#1f2430">Group of 5 × 1</text>
+    <text x="868" y="162" text-anchor="end" font-size="14" font-weight="600" fill="#1f2430">OMR 100.000</text>
+
+    <text x="536" y="196" font-size="13" font-weight="600" fill="#6b7280">Promo code</text>
+    <rect x="536.5" y="204.5" width="331" height="36" rx="8" fill="#ffffff" stroke="#10b981"/>
+    <text x="550" y="227.5" font-size="14" font-weight="700" fill="#1f2430" letter-spacing=".5">GULF20</text>
+    <rect x="790" y="211" width="68" height="22" rx="11" fill="#ecfdf5"/>
+    <path d="M800 222l3 3 6-6.5" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="814" y="226.5" font-size="13" font-weight="700" fill="#059669">−20%</text>
+
+    <text x="536" y="272" font-size="14" fill="#4b5160">Subtotal</text>
+    <text x="868" y="272" text-anchor="end" font-size="14" fill="#4b5160">OMR 100.000</text>
+    <text x="536" y="298" font-size="14" fill="#059669">Discount · GULF20</text>
+    <text x="868" y="298" text-anchor="end" font-size="14" font-weight="600" fill="#059669">−OMR 20.000</text>
+    <path d="M536 314.5H868" stroke="#e8e9ee"/>
+    <text x="536" y="344" font-size="16" font-weight="700" fill="#1f2430">Total</text>
+    <text x="868" y="345" text-anchor="end" font-size="20" font-weight="800" fill="#1f2430">OMR 80.000</text>
+
+    <rect x="536" y="364" width="332" height="44" rx="10" fill="#6452E7"/>
+    <g stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="590" y="378" width="22" height="16" rx="3"/>
+      <path d="M590 383.5h22"/>
+    </g>
+    <text x="622" y="391.5" font-size="15" font-weight="700" fill="#ffffff">Pay by card · OMR 80.000</text>
+
+    <!-- Toast -->
+    <g filter="url(#s)">
+      <rect x="596" y="424" width="296" height="62" rx="14" fill="#ecfdf5"/>
+    </g>
+    <rect x="596.5" y="424.5" width="295" height="61" rx="14" stroke="#a7f3d0"/>
+    <circle cx="630" cy="455" r="16" fill="#10b981"/>
+    <path d="M623 455.5l4.5 4.5 8.5-9" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="658" y="450" font-size="15" font-weight="700" fill="#065f46">Payment received</text>
+    <text x="658" y="470" font-size="13" font-weight="600" fill="#047857">Invoice sent to Omar Saleh</text>
+  </g>
+</svg>

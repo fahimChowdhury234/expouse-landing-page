@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247.21 182.86">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .12;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill: #6267aa;
+      }
+
+      .cls-2 {
+        opacity: .6;
+      }
+
+      .cls-3 {
+        opacity: .4;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="247.21" height="182.86"/>
+  <g>
+    <path class="cls-4" d="M62.66,112.37c0-1.18.07-2.35.17-3.5h39.06s21.17,0,21.17,0v42.73h-21.17c-21.67,0-39.23-17.57-39.23-39.23Z"/>
+    <rect class="cls-2" x="62.79" y="31.25" width="60.26" height="77.82" transform="translate(185.84 140.32) rotate(-180)"/>
+    <rect class="cls-3" x="123.06" y="109.51" width="61.49" height="42.02"/>
+  </g>
+</svg>

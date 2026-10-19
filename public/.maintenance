@@ -1,0 +1,3 @@
+While this file exists, expouse.com shows maintenance.html (HTTP 503) to the
+public. Delete it and push to production to publish the site.
+Team preview: see the "Maintenance mode" block in public/.htaccess.

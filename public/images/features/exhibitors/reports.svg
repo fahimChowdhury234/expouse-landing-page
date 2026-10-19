@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" fill="none">
+<defs><filter id="s" x="-20%" y="-20%" width="140%" height="170%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1a1a2e" flood-opacity="0.12"/></filter></defs>
+<g font-family="Cairo, -apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif">
+<rect width="960" height="600" fill="#ffffff"/>
+<rect x="80.5" y="60.5" width="499" height="479" rx="15.5" fill="#ffffff" stroke="#e8e9ee"/>
+<text x="104" y="98" font-size="18" font-weight="800" fill="#1f2430">Lead follow-up</text>
+<text x="104" y="119" font-size="13" fill="#6b7280">Atlasco · Booth B-214 · 5 - 7 Oct</text>
+<circle cx="337" cy="102" r="16" fill="#ffffff"/>
+<circle cx="337" cy="102" r="14" fill="#fffbeb"/>
+<text x="337" y="106.5" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309">YA</text>
+<circle cx="363" cy="102" r="16" fill="#ffffff"/>
+<circle cx="363" cy="102" r="14" fill="#fce7f3"/>
+<text x="363" y="106.5" text-anchor="middle" font-size="13" font-weight="700" fill="#be185d">LH</text>
+<circle cx="389" cy="102" r="16" fill="#ffffff"/>
+<circle cx="389" cy="102" r="14" fill="#ecfdf5"/>
+<text x="389" y="106.5" text-anchor="middle" font-size="13" font-weight="700" fill="#047857">RK</text>
+<text x="556" y="106.5" text-anchor="end" font-size="13" font-weight="600" fill="#4b5160">Shared with 5 reps</text>
+<text x="104" y="166" font-size="13" fill="#6b7280">Booth visits</text>
+<text x="104" y="196" font-size="22" font-weight="800" fill="#1f2430">1,240</text>
+<path d="M239.5 146v58" stroke="#e8e9ee"/>
+<text x="260" y="166" font-size="13" fill="#6b7280">Badge scans</text>
+<text x="260" y="196" font-size="22" font-weight="800" fill="#1f2430">214</text>
+<path d="M395.5 146v58" stroke="#e8e9ee"/>
+<text x="416" y="166" font-size="13" fill="#6b7280">Avg. visit</text>
+<text x="416" y="196" font-size="22" font-weight="800" fill="#1f2430">6 min</text>
+<path d="M104 226.5h452" stroke="#e8e9ee"/>
+<text x="104" y="258" font-size="14" font-weight="700" fill="#1f2430">Visits and scans by day</text>
+<rect x="404" y="249" width="10" height="10" rx="2" fill="#a78bfa"/>
+<text x="420" y="258" font-size="13" fill="#4b5160">Visits</text>
+<rect x="476" y="249" width="10" height="10" rx="2" fill="#6452E7"/>
+<text x="492" y="258" font-size="13" fill="#4b5160">Scans</text>
+<path d="M144 470.5h396" stroke="#eef0f3"/>
+<text x="132" y="474.5" text-anchor="end" font-size="13" fill="#9aa1ad">0</text>
+<path d="M144 380.5h396" stroke="#eef0f3" stroke-dasharray="3 4"/>
+<text x="132" y="384.5" text-anchor="end" font-size="13" fill="#9aa1ad">250</text>
+<path d="M144 290.5h396" stroke="#eef0f3" stroke-dasharray="3 4"/>
+<text x="132" y="294.5" text-anchor="end" font-size="13" fill="#9aa1ad">500</text>
+<path d="M167.0 470 V327.7 a6 6 0 0 1 6 -6 H201.0 a6 6 0 0 1 6 6 V470 Z" fill="#a78bfa"/>
+<text x="187.0" y="311.7" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2430">412</text>
+<path d="M213.0 470 V453.0 a6 6 0 0 1 6 -6 H247.0 a6 6 0 0 1 6 6 V470 Z" fill="#6452E7"/>
+<text x="233.0" y="437.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2430">64</text>
+<text x="210.0" y="496" text-anchor="middle" font-size="13" fill="#6b7280">Mon 5 Oct</text>
+<path d="M299.0 470 V301.0 a6 6 0 0 1 6 -6 H333.0 a6 6 0 0 1 6 6 V470 Z" fill="#a78bfa"/>
+<text x="319.0" y="285.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2430">486</text>
+<path d="M345.0 470 V445.0 a6 6 0 0 1 6 -6 H379.0 a6 6 0 0 1 6 6 V470 Z" fill="#6452E7"/>
+<text x="365.0" y="429.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2430">86</text>
+<text x="342.0" y="496" text-anchor="middle" font-size="13" fill="#6b7280">Tue 6 Oct</text>
+<path d="M431.0 470 V352.9 a6 6 0 0 1 6 -6 H465.0 a6 6 0 0 1 6 6 V470 Z" fill="#a78bfa"/>
+<text x="451.0" y="336.9" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2430">342</text>
+<path d="M477.0 470 V453.0 a6 6 0 0 1 6 -6 H511.0 a6 6 0 0 1 6 6 V470 Z" fill="#6452E7"/>
+<text x="497.0" y="437.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2430">64</text>
+<text x="474.0" y="496" text-anchor="middle" font-size="13" fill="#6b7280">Wed 7 Oct</text>
+<g filter="url(#s)"><rect x="560" y="128" width="320" height="220" rx="16" fill="#ffffff"/></g>
+<rect x="560.5" y="128.5" width="319" height="219" rx="15.5" stroke="#e8e9ee"/>
+<text x="584" y="162" font-size="16" font-weight="700" fill="#1f2430">Leads by score</text>
+<text x="856" y="162" text-anchor="end" font-size="13" fill="#6b7280">All 3 days</text>
+<circle cx="660" cy="254" r="56" stroke="#ef4444" stroke-width="18" stroke-dasharray="92.36 259.49" stroke-dashoffset="-0.00" transform="rotate(-90 660 254)"/>
+<circle cx="660" cy="254" r="56" stroke="#f59e0b" stroke-width="18" stroke-dasharray="154.84 197.02" stroke-dashoffset="-95.36" transform="rotate(-90 660 254)"/>
+<circle cx="660" cy="254" r="56" stroke="#94a3b8" stroke-width="18" stroke-dasharray="95.65 256.21" stroke-dashoffset="-253.21" transform="rotate(-90 660 254)"/>
+<text x="660" y="258" text-anchor="middle" font-size="22" font-weight="800" fill="#1f2430">214</text>
+<text x="660" y="276" text-anchor="middle" font-size="13" fill="#6b7280">leads</text>
+<circle cx="756" cy="216" r="5" fill="#ef4444"/>
+<text x="770" y="221" font-size="14" font-weight="600" fill="#1f2430">Hot</text>
+<text x="856" y="221" text-anchor="end" font-size="14" font-weight="700" fill="#1f2430">58</text>
+<circle cx="756" cy="254" r="5" fill="#f59e0b"/>
+<text x="770" y="259" font-size="14" font-weight="600" fill="#1f2430">Warm</text>
+<text x="856" y="259" text-anchor="end" font-size="14" font-weight="700" fill="#1f2430">96</text>
+<circle cx="756" cy="292" r="5" fill="#94a3b8"/>
+<text x="770" y="297" font-size="14" font-weight="600" fill="#1f2430">Cold</text>
+<text x="856" y="297" text-anchor="end" font-size="14" font-weight="700" fill="#1f2430">60</text>
+<g filter="url(#s)"><rect x="560" y="364" width="320" height="182" rx="16" fill="#ffffff"/></g>
+<rect x="560.5" y="364.5" width="319" height="181" rx="15.5" stroke="#e8e9ee"/>
+<text x="584" y="398" font-size="16" font-weight="700" fill="#1f2430">Export leads</text>
+<text x="584" y="418" font-size="13" fill="#6b7280">Names, answers, notes and scores</text>
+<rect x="584" y="434" width="272" height="40" rx="10" fill="#6452E7"/>
+<g stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M625 451a7.5 7.5 0 0 1 13-3.5l1.5 1.5M640 444.5v4.5h-4.5"/><path d="M639 457a7.5 7.5 0 0 1-13 3.5l-1.5-1.5M624 463.5v-4.5h4.5"/></g>
+<text x="650" y="459" font-size="14" font-weight="700" fill="#ffffff">Send 214 leads to CRM</text>
+<rect x="584.5" y="484.5" width="271" height="39" rx="10" fill="#ffffff" stroke="#e8e9ee"/>
+<g stroke="#4b5160" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M666 494v10M661.5 500l4.5 4.5 4.5-4.5M660 509h12"/></g>
+<text x="682" y="509" font-size="14" font-weight="700" fill="#1f2430">Download CSV</text>
+</g>
+</svg>
