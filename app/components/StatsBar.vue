@@ -2,21 +2,22 @@
 /**
  * 03 · Numbers.
  *
- * Four headline figures in one card, right under the hero stage: an icon tile,
- * the figure in brand colour and what it counts. Laid out from the Figma
+ * Five headline figures in one card, right under the hero stage: an icon tile,
+ * the figure in brand colour and what it stands for. Laid out from the Figma
  * frame; the motion comes from expouse-landing/index.html (`.stats`): when the
- * card scrolls into view the cells rise in one after another and the figures
- * count up from zero. The server renders the final figures, so without JS,
- * with reduced motion, or when the card is already on screen at load, they
- * are simply shown.
- *
- * PLACEHOLDER STATS: demo numbers only. Confirm every figure before launch.
+ * card scrolls into view the cells rise in one after another and the numeric
+ * figures count up from zero (text figures like 24/7 and ∞ just rise in). The
+ * server renders the final figures, so without JS, with reduced motion, or
+ * when the card is already on screen at load, they are simply shown.
  */
-const STATS = [
-  { icon: 'lucide:layout-grid', value: 40, suffix: '+', label: 'Built-in modules' },
-  { icon: 'lucide:users', value: 50, suffix: 'K+', label: 'Attendees on one event' },
-  { icon: 'lucide:monitor', value: 3, suffix: '', label: 'Separate portals' },
-  { icon: 'lucide:globe', value: 2, suffix: '', label: 'Languages, Arabic included' },
+type Stat = { icon: string, label: string, value?: number, suffix?: string, text?: string }
+
+const STATS: Stat[] = [
+  { icon: 'lucide:rotate-3d', value: 360, suffix: '°', label: 'Event Management' },
+  { icon: 'lucide:clock', text: '24/7', label: 'Connected Experience' },
+  { icon: 'lucide:layers', value: 1, label: 'Unified Ecosystem' },
+  { icon: 'lucide:smartphone', value: 100, suffix: '%', label: 'Digital Journey' },
+  { icon: 'lucide:trending-up', text: '∞', label: 'Built to Scale' },
 ]
 /** Length of the count-up. */
 const COUNT_MS = 1400
@@ -24,7 +25,7 @@ const COUNT_MS = 1400
 const card = ref<HTMLElement | null>(null)
 const animate = ref(false)
 const revealed = ref(false)
-const shown = ref(STATS.map(s => s.value))
+const shown = ref(STATS.map(s => s.value ?? 0))
 let observer: IntersectionObserver | null = null
 let frame = 0
 
@@ -33,7 +34,7 @@ function countUp() {
   const step = (now: number) => {
     const p = Math.min(1, (now - t0) / COUNT_MS)
     const eased = 1 - Math.pow(1 - p, 3)
-    shown.value = STATS.map(s => Math.round(s.value * eased))
+    shown.value = STATS.map(s => Math.round((s.value ?? 0) * eased))
     if (p < 1) frame = requestAnimationFrame(step)
   }
   frame = requestAnimationFrame(step)
@@ -72,7 +73,7 @@ onBeforeUnmount(() => {
             <Icon :name="s.icon" class="ico" />
           </span>
           <div class="txt">
-            <b>{{ shown[i] }}{{ s.suffix }}</b>
+            <b>{{ s.value === undefined ? s.text : `${shown[i]}${s.suffix ?? ''}` }}</b>
             <span>{{ s.label }}</span>
           </div>
         </div>
@@ -100,7 +101,7 @@ onBeforeUnmount(() => {
 
 .st-card {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   background: #fff;
   border: 1px solid var(--st-line);
   border-radius: 12px;
@@ -110,9 +111,9 @@ onBeforeUnmount(() => {
 .stat {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   min-width: 0;
-  padding: 30px 20px 30px 28px;
+  padding: 28px 16px 28px 22px;
 }
 
 .stat+.stat {
@@ -172,27 +173,57 @@ onBeforeUnmount(() => {
   filter: none;
 }
 
-@media (max-width: 900px) {
+/* Five across gets cramped: 3 + 2 on a six-track grid. */
+@media (max-width: 1080px) {
+  .st-card {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .stat {
+    grid-column: span 2;
+    padding: 30px 20px 30px 28px;
+  }
+
+  .stat:nth-child(n+4) {
+    grid-column: span 3;
+    border-top: 1px solid var(--st-line);
+  }
+
+  .stat:nth-child(4) {
+    border-left: 0;
+  }
+}
+
+/* Phones: 2 + 2 + 1, with the tile above the figure; the last cell spans the row. */
+@media (max-width: 520px) {
   .st-card {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .stat:nth-child(3) {
-    border-left: 0;
+  .stat {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px 18px;
   }
 
   .stat:nth-child(n+3) {
     border-top: 1px solid var(--st-line);
   }
-}
 
-/* Phones: keep the 2 × 2 grid, with the tile above the figure. */
-@media (max-width: 520px) {
-  .stat {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 22px 18px;
+  .stat:nth-child(4) {
+    grid-column: auto;
+    border-left: 1px solid var(--st-line);
+  }
+
+  .stat:nth-child(3),
+  .stat:nth-child(5) {
+    border-left: 0;
+  }
+
+  .stat:nth-child(5) {
+    grid-column: span 2;
   }
 
   .tile {

@@ -123,7 +123,7 @@ onBeforeUnmount(() => {
         >
           <div class="chrome">
             <i /><i /><i />
-            <span class="url"><Icon name="lucide:lock" class="ico" />dashboard.expouse.com/org/events/overview</span>
+            <span class="url"><Icon name="lucide:lock" class="ico" />expouse.com</span>
           </div>
 
           <div ref="fitEl" class="fit" :style="{ '--s': scale }">

@@ -79,7 +79,10 @@ const HIGHLIGHTS = [
   <MobileApps />
   <BrandedApp />
   <RegionSecurity />
-  <MediaGallery />
+  <TestimonialsSection />
+  <!-- Media gallery is hidden for now; the blog takes its place. -->
+  <!-- <MediaGallery /> -->
+  <BlogHighlights />
   <PricingPlans />
   <DemoCta />
   <FaqSection />

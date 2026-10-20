@@ -4,12 +4,13 @@
  *
  * One section, two cards side by side (Figma: Region + Security):
  *
- * - Region: English and Arabic support, with the same screen in both languages
- *   in two small cards, the Arabic one right to left with Arabic numerals. While
- *   the card is on screen the pair takes turns through the places attendees meet
- *   the language (the app, the event website, emails, the printed badge),
- *   pausing while the pointer is over it. At rest, with reduced motion or
- *   without JS it shows the app's welcome, as in the Figma frame.
+ * - Region: multi-language support. A row of language chips (the locales the
+ *   platform seeds, plus "more" since staff can add their own) above one app
+ *   preview showing the same welcome screen in the chosen language; Arabic lays
+ *   out right to left with Arabic numerals. While the card is on screen the
+ *   preview takes turns through the languages, pausing while the pointer is over
+ *   it; picking a chip stops the turns and holds that language. At rest, with
+ *   reduced motion or without JS it shows English.
  * - Security: four short promises about data and access, in a 2 × 2 grid.
  *
  * When the cards scroll into view they rise in one after the other; without JS,
@@ -18,30 +19,37 @@
  *
  * PLACEHOLDER STAT: "more than 50,000 attendees" - confirm before launch.
  */
-type Copy = { title: string, text: string }
-
-const SURFACES: { en: Copy, ar: Copy }[] = [
-  {
-    en: { title: 'Welcome to Gulf Logistics Expo 2026', text: 'Your badge is ready. Show this QR code at any gate.' },
-    ar: { title: 'مرحباً بكم في معرض الخليج للخدمات اللوجستية ٢٠٢٦', text: 'بطاقتك جاهزة. أظهر رمز QR عند أي بوابة.' },
-  },
-  {
-    en: { title: 'Register for Gulf Logistics Expo 2026', text: '12 – 14 November 2026 · Dubai World Trade Centre' },
-    ar: { title: 'سجّل في معرض الخليج للخدمات اللوجستية ٢٠٢٦', text: '١٢ – ١٤ نوفمبر ٢٠٢٦ · مركز دبي التجاري العالمي' },
-  },
-  {
-    en: { title: 'Your registration is confirmed', text: 'See you on 12 November. Your QR badge is attached.' },
-    ar: { title: 'تم تأكيد تسجيلك', text: 'نراك في ١٢ نوفمبر. بطاقة QR الخاصة بك مرفقة.' },
-  },
-  {
-    en: { title: 'Sara Ali', text: 'Visitor · Fleetly. Printed at Kiosk 3 in 4 seconds.' },
-    ar: { title: 'سارة علي', text: 'زائر · فليتلي. طُبعت في الكشك ٣ خلال ٤ ثوانٍ.' },
-  },
-]
-
 const LANGS = [
-  { key: 'en', label: 'English', dir: 'ltr' },
-  { key: 'ar', label: 'العربية', dir: 'rtl' },
+  {
+    key: 'en', label: 'English', name: 'English', dir: 'ltr',
+    title: 'Welcome to Gulf Logistics Expo 2026',
+    text: '12 – 14 November 2026 · Dubai World Trade Centre',
+    cta: 'Show my badge',
+  },
+  {
+    key: 'ar', label: 'العربية', name: 'Arabic', dir: 'rtl',
+    title: 'مرحباً بكم في معرض الخليج للخدمات اللوجستية ٢٠٢٦',
+    text: '١٢ – ١٤ نوفمبر ٢٠٢٦ · مركز دبي التجاري العالمي',
+    cta: 'أظهر بطاقتي',
+  },
+  {
+    key: 'fr', label: 'Français', name: 'French', dir: 'ltr',
+    title: 'Bienvenue au Gulf Logistics Expo 2026',
+    text: '12 – 14 novembre 2026 · Dubai World Trade Centre',
+    cta: 'Afficher mon badge',
+  },
+  {
+    key: 'es', label: 'Español', name: 'Spanish', dir: 'ltr',
+    title: 'Bienvenido a Gulf Logistics Expo 2026',
+    text: '12 – 14 de noviembre de 2026 · Dubai World Trade Centre',
+    cta: 'Mostrar mi acreditación',
+  },
+  {
+    key: 'bn', label: 'বাংলা', name: 'Bengali', dir: 'ltr',
+    title: 'গাল্ফ লজিস্টিকস এক্সপো ২০২৬-এ স্বাগতম',
+    text: '১২ – ১৪ নভেম্বর ২০২৬ · দুবাই ওয়ার্ল্ড ট্রেড সেন্টার',
+    cta: 'আমার ব্যাজ দেখান',
+  },
 ] as const
 
 const POINTS = [
@@ -51,21 +59,30 @@ const POINTS = [
   { icon: 'lucide:server', title: 'Tested at scale', text: 'Already running single events with more than 50,000 attendees.' },
 ]
 
-/* ---------- The language pair takes turns while on screen ---------- */
+/* ---------- The preview takes turns through the languages while on screen ---------- */
 const current = ref(0)
-const surface = computed(() => SURFACES[current.value]!)
+const lang = computed(() => LANGS[current.value]!)
 const hovered = ref(false)
+/** Once someone picks a language, it stays put. */
+const picked = ref(false)
 const tl = useTimeline()
 
 function turns() {
+  if (picked.value) return
   tl.run(async (wait) => {
     while (true) {
-      await wait(4200)
+      await wait(3200)
       // Hold still while someone is reading it.
       while (hovered.value) await wait(400)
-      current.value = (current.value + 1) % SURFACES.length
+      current.value = (current.value + 1) % LANGS.length
     }
   })
+}
+
+function pick(i: number) {
+  picked.value = true
+  tl.cancel()
+  current.value = i
 }
 
 const langs = ref<HTMLElement | null>(null)
@@ -109,10 +126,10 @@ onBeforeUnmount(() => {
             <span class="tile"><Icon name="lucide:globe" class="ico" /></span>
             <div>
               <p class="eyebrow">Built for the region</p>
-              <h2 id="rs-region" class="title">Arabic and English, done properly</h2>
+              <h2 id="rs-region" class="title">Every language your attendees speak</h2>
             </div>
           </header>
-          <p class="desc">Switch everything to Arabic and it lays out right to left: the website, the app, the emails and the printed badges.</p>
+          <p class="desc">Run one event in English, Arabic, French, Spanish, Bengali and more. Each attendee picks their language, and right-to-left scripts like Arabic lay out properly: the website, the app, the emails and the printed badges.</p>
 
           <div
             ref="langs"
@@ -120,12 +137,32 @@ onBeforeUnmount(() => {
             @mouseenter="hovered = true"
             @mouseleave="hovered = false"
           >
-            <div v-for="l in LANGS" :key="l.key" class="lang" :lang="l.key" :dir="l.dir">
-              <span class="pill">{{ l.label }}</span>
-              <Transition :name="`rs-swap-${l.dir}`" mode="out-in">
-                <div :key="current" class="lang-copy">
-                  <b>{{ surface[l.key].title }}</b>
-                  <p>{{ surface[l.key].text }}</p>
+            <div class="chips" role="group" aria-label="Preview a language">
+              <button
+                v-for="(l, i) in LANGS"
+                :key="l.key"
+                type="button"
+                class="chip"
+                :class="{ on: i === current }"
+                :lang="l.key"
+                :aria-pressed="i === current"
+                @click="pick(i)"
+              >
+                {{ l.label }}
+              </button>
+              <span class="chip chip-more"><Icon name="lucide:plus" class="ico" />More</span>
+            </div>
+
+            <div class="preview">
+              <div class="preview-bar">
+                <span><Icon name="lucide:smartphone" class="ico" />Attendee app</span>
+                <span class="tag">{{ lang.name }} · {{ lang.dir === 'rtl' ? 'Right to left' : 'Left to right' }}</span>
+              </div>
+              <Transition name="rs-swap" mode="out-in">
+                <div :key="lang.key" class="lang-copy" :lang="lang.key" :dir="lang.dir">
+                  <b>{{ lang.title }}</b>
+                  <p>{{ lang.text }}</p>
+                  <span class="cta">{{ lang.cta }}</span>
                 </div>
               </Transition>
             </div>
@@ -259,39 +296,110 @@ onBeforeUnmount(() => {
   color: var(--rs-muted);
 }
 
-/* ---------- Region: the same screen in English and Arabic ---------- */
+/* ---------- Region: language chips over one app preview ---------- */
 .langs {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 14px;
   margin-top: auto;
   padding-top: 32px;
 }
 
-.lang {
+.chips {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 13px;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--rs-ink);
+  background: #fff;
+  border: 1px solid var(--rs-line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color .25s, background-color .25s, border-color .25s;
+}
+
+.chip:hover {
+  border-color: var(--rs-brand-200);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--rs-brand);
+  outline-offset: 2px;
+}
+
+.chip.on {
+  color: #fff;
+  background: var(--rs-brand);
+  border-color: var(--rs-brand);
+}
+
+.chip-more {
+  color: var(--rs-muted);
+  border-style: dashed;
+  cursor: default;
+}
+
+.chip-more:hover {
+  border-color: var(--rs-line);
+}
+
+.chip-more .ico {
+  width: 14px;
+  height: 14px;
+}
+
+.preview {
   min-width: 0;
-  min-height: 158px;
-  padding: 17px 17px 18px;
+  min-height: 196px;
+  padding: 14px 18px 18px;
   background: var(--rs-tint);
   border: 1px solid #e8e5f6;
   border-radius: 11px;
 }
 
-.pill {
-  padding: 3px 8px;
-  font-size: 13px;
+.preview-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e8e5f6;
+  font-size: 12.5px;
   font-weight: 600;
-  line-height: 1.4;
-  color: #fff;
-  background: var(--rs-brand);
+  color: var(--rs-muted);
+}
+
+.preview-bar > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preview-bar .ico {
+  width: 14px;
+  height: 14px;
+}
+
+.tag {
+  padding: 2px 8px;
+  color: var(--rs-brand);
+  background: #fff;
   border-radius: 6px;
+  white-space: nowrap;
 }
 
 .lang-copy {
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .lang-copy b {
@@ -308,26 +416,33 @@ onBeforeUnmount(() => {
   color: var(--rs-muted);
 }
 
+.cta {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 7px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--rs-brand);
+  border-radius: 8px;
+}
+
 /* Arabic reads a touch larger at the same size. */
-.lang[dir="rtl"] .lang-copy b {
+.lang-copy[dir="rtl"] b {
   font-size: 17px;
 }
 
-/* A new screen slides in from where its language reads from. */
-.rs-swap-ltr-enter-active,
-.rs-swap-rtl-enter-active {
+/* Each language rises in as the last one fades out. */
+.rs-swap-enter-active {
   transition: opacity .45s var(--rs-ease), transform .5s var(--rs-ease);
 }
 
-.rs-swap-ltr-leave-active,
-.rs-swap-rtl-leave-active {
+.rs-swap-leave-active {
   transition: opacity .2s ease, transform .25s ease;
 }
 
-.rs-swap-ltr-enter-from { opacity: 0; transform: translateX(-12px); }
-.rs-swap-ltr-leave-to { opacity: 0; transform: translateX(8px); }
-.rs-swap-rtl-enter-from { opacity: 0; transform: translateX(12px); }
-.rs-swap-rtl-leave-to { opacity: 0; transform: translateX(-8px); }
+.rs-swap-enter-from { opacity: 0; transform: translateY(8px); }
+.rs-swap-leave-to { opacity: 0; transform: translateY(-6px); }
 
 /* ---------- Security: four promises, 2 × 2 ---------- */
 .points {
@@ -434,21 +549,19 @@ onBeforeUnmount(() => {
     height: 21px;
   }
 
-  .langs,
   .points {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .lang {
+  .preview {
     min-height: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rs-swap-ltr-enter-active,
-  .rs-swap-rtl-enter-active,
-  .rs-swap-ltr-leave-active,
-  .rs-swap-rtl-leave-active,
+  .rs-swap-enter-active,
+  .rs-swap-leave-active,
+  .chip,
   .point,
   .ptile {
     transition: none;

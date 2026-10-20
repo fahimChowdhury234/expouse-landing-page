@@ -45,7 +45,7 @@ const COLUMNS = [
     links: [
       { label: 'About us', href: url(config.aboutUrl) },
       { label: 'Pricing', to: '/#pricing' },
-      { label: 'FAQ', to: '/#faq' },
+      { label: 'FAQ', to: '/faq' },
       { label: 'News', to: '/news' },
       { label: 'Blog', to: '/blog' },
       { label: 'Media gallery', to: '/gallery' },
@@ -138,10 +138,10 @@ onBeforeUnmount(() => {
       <div class="bottom">
         <p class="copy">© {{ year }} EXPOUSE. All rights reserved.</p>
 
-        <nav class="lang" aria-label="Language">
+        <!-- <nav class="lang" aria-label="Language">
           <span class="lang-btn on" aria-current="true">English</span>
           <a :href="url(config.arabicUrl)" class="lang-btn" lang="ar" hreflang="ar">العربية</a>
-        </nav>
+        </nav> -->
 
         <ul class="social">
           <li v-for="s in SOCIAL" :key="s.key">
@@ -319,8 +319,8 @@ onBeforeUnmount(() => {
 
 /* ---------- Bottom ---------- */
 .bottom {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
   margin-top: 48px;

@@ -5,7 +5,7 @@
  * booth at the sample event. The portal's sidebar is left out, so the full menu
  * isn't on show. Omar Saleh is the hot lead from the hero's card.
  *
- * Every person and company here is fictional sample data.
+ * Every person and company here is fictional sample data, and emails are masked so none reads as a real address.
  */
 import type { AdminNavItem } from './AudienceAdminShell.vue'
 
@@ -34,10 +34,10 @@ const STATS = [
 const COLUMNS = ['Leads', 'Company', 'Rating', 'Stars', 'Engagement', 'Status', 'Scanned by']
 
 const LEADS = [
-  { name: 'Omar Saleh', initials: 'OS', email: 'omar.saleh@buildmart.om', source: 'scan', company: 'BuildMart Oman', rating: 'hot', stars: 4, score: 92, status: 'Connected', by: 'Layla Haddad', time: '11:42 AM' },
-  { name: 'Mariam Al Balushi', initials: 'MA', email: 'mariam@alnoorinteriors.om', source: 'connect', company: 'Al Noor Interiors', rating: 'warm', stars: 3, score: 74, status: 'Pending', by: 'Layla Haddad', time: '11:15 AM' },
-  { name: 'Khalid Al Rawahi', initials: 'KA', email: 'khalid@timesofoman.com', source: 'scan', company: 'Times of Oman', rating: 'cold', stars: 2, score: 41, status: 'Pending', by: 'Yousef Amin', time: '10:58 AM' },
-  { name: 'Sara Ali', initials: 'SA', email: 'sara.ali@fleetly.io', source: 'scan', company: 'Fleetly', rating: 'warm', stars: 3, score: 68, status: 'Connected', by: 'Yousef Amin', time: '10:31 AM' },
+  { name: 'Omar Saleh', initials: 'OS', email: 'om•••••@•••••.com', source: 'scan', company: 'BuildMart Oman', rating: 'hot', stars: 4, score: 92, status: 'Connected', by: 'Layla Haddad', time: '11:42 AM' },
+  { name: 'Mariam Al Balushi', initials: 'MA', email: 'ma•••••@•••••.com', source: 'connect', company: 'Al Noor Interiors', rating: 'warm', stars: 3, score: 74, status: 'Pending', by: 'Layla Haddad', time: '11:15 AM' },
+  { name: 'Khalid Al Rawahi', initials: 'KA', email: 'kh•••••@•••••.com', source: 'scan', company: 'Coastline Media', rating: 'cold', stars: 2, score: 41, status: 'Pending', by: 'Yousef Amin', time: '10:58 AM' },
+  { name: 'Sara Ali', initials: 'SA', email: 'sa•••••@•••••.com', source: 'scan', company: 'Fleetly', rating: 'warm', stars: 3, score: 68, status: 'Connected', by: 'Yousef Amin', time: '10:31 AM' },
 ]
 
 const SOURCE: Record<string, string> = { scan: 'Badge Scan', connect: 'Shared Details' }

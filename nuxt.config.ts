@@ -97,7 +97,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/contact-us', '/news', '/blog', '/gallery', '/sitemap.xml', '/robots.txt'],
+      routes: ['/', '/contact-us', '/faq', '/news', '/blog', '/gallery', '/sitemap.xml', '/robots.txt'],
       // /contact-us -> contact-us.html (not contact-us/index.html), so the URL
       // needs no trailing slash; .htaccess maps the clean URL to the file.
       autoSubfolderIndex: false,

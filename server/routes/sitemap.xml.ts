@@ -11,7 +11,7 @@ import { FEATURE_PAGES } from '../../app/utils/features'
 import { ALL_POSTS } from '../../app/utils/news'
 
 const PAGES = [
-  '/', '/contact-us', '/gallery',
+  '/', '/contact-us', '/faq', '/gallery',
   ...FEATURE_PAGES.map(f => `/features/${f.slug}`),
   '/news', ...ALL_POSTS.map(p => `/news/${p.slug}`),
   '/blog', ...BLOG_POSTS.map(p => `/blog/${p.slug}`),

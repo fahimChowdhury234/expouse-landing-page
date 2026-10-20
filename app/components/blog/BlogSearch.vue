@@ -1,6 +1,12 @@
 <script setup lang="ts">
-/** The /blog search box: filters articles as you type; Escape or the × clears it. */
+/** The /blog (and /faq) search box: filters the list as you type; Escape or the × clears it. */
 const query = defineModel<string>({ required: true })
+
+withDefaults(defineProps<{
+  label?: string
+}>(), {
+  label: 'Search articles',
+})
 </script>
 
 <template>
@@ -10,8 +16,8 @@ const query = defineModel<string>({ required: true })
       v-model="query"
       type="search"
       class="input"
-      placeholder="Search articles"
-      aria-label="Search articles"
+      :placeholder="label"
+      :aria-label="label"
       autocomplete="off"
       @keydown.esc="query = ''"
     >

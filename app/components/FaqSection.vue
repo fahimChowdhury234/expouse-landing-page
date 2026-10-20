@@ -2,26 +2,17 @@
 /**
  * 12 · FAQ.
  *
- * Five common questions as an accordion (Figma: FAQ): one answer open at a
- * time, the first one open to start with. The answers slide open and shut
- * (a grid row from 0fr to 1fr, so no heights are measured) and the chevron
- * turns. Each question is a real button wired to its answer (aria-expanded,
- * aria-controls), and every answer is in the page for search engines and
- * readers without JS. When the list scrolls into view the questions rise in
- * one after another; without JS, with reduced motion, or when they are already
- * on screen at load, they are simply shown.
+ * Five common questions as an accordion (Figma: FAQ, components/faq/FaqAccordion):
+ * one answer open at a time, the first one open to start with. When the list
+ * scrolls into view the questions rise in one after another; without JS, with
+ * reduced motion, or when they are already on screen at load, they are simply
+ * shown. Under the list, "See all questions" goes to /faq for the full list.
  *
  * The questions live in utils/faqs.ts, shared with the page's FAQPage
  * structured data (pages/index.vue), so the two never drift apart.
  *
  * This is the page's #faq section (the nav's "FAQ" link lands here).
  */
-const open = ref<number | null>(0)
-
-function toggle(i: number) {
-  open.value = open.value === i ? null : i
-}
-
 const list = ref<HTMLElement | null>(null)
 const animate = ref(false)
 const revealed = ref(false)
@@ -56,28 +47,16 @@ onBeforeUnmount(() => {
         <h2 id="fq-title" class="fq-title">Frequently asked questions</h2>
       </header>
 
-      <ul ref="list" class="list" :class="{ 'fq--animate': animate, in: revealed }">
-        <li v-for="(f, i) in FAQS" :key="f.q" class="item" :class="{ open: open === i }" :style="{ '--i': i }">
-          <h3 class="q">
-            <button
-              :id="`fq-q${i}`"
-              type="button"
-              class="q-btn"
-              :aria-expanded="open === i"
-              :aria-controls="`fq-a${i}`"
-              @click="toggle(i)"
-            >
-              <span>{{ f.q }}</span>
-              <Icon name="lucide:chevron-down" class="chev" />
-            </button>
-          </h3>
-          <div :id="`fq-a${i}`" class="a" role="region" :aria-labelledby="`fq-q${i}`" :aria-hidden="open !== i">
-            <div class="a-in">
-              <p>{{ f.a }}</p>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <div ref="list" class="fq-list">
+        <FaqAccordion :items="FAQS" id-prefix="fq" :animate="animate" :revealed="revealed" />
+      </div>
+
+      <div class="more">
+        <NuxtLink to="/faq" class="btn-more">
+          See all questions
+          <Icon name="lucide:arrow-right" class="ico" />
+        </NuxtLink>
+      </div>
     </div>
   </section>
 </template>
@@ -88,7 +67,6 @@ onBeforeUnmount(() => {
   --fq-brand: var(--color-brand, #6366f1);
   --fq-ink: var(--color-ink, #1f2430);
   --fq-muted: var(--color-muted, #6b7280);
-  --fq-line: #e6e4f2;
   --fq-ease: cubic-bezier(.22, .8, .24, 1);
   color: var(--fq-ink);
   background: #fff;
@@ -124,145 +102,57 @@ onBeforeUnmount(() => {
 }
 
 /* ---------- Questions ---------- */
-.list {
-  display: grid;
-  gap: 14px;
+.fq-list {
   max-width: 848px;
   margin: 0 auto;
-  padding: 0;
-  list-style: none;
 }
 
-.item {
-  background: #fff;
-  border: 1px solid var(--fq-line);
-  border-radius: 10px;
-  transition: border-color .25s, box-shadow .3s;
-}
-
-.item:hover,
-.item.open {
-  border-color: #dad7f3;
-}
-
-.item.open {
-  box-shadow: 0 18px 40px -32px rgba(99, 102, 241, .45);
-}
-
-.q {
-  margin: 0;
-}
-
-.q-btn {
-  width: 100%;
-  min-height: 70px;
+/* ---------- See all questions ---------- */
+.more {
   display: flex;
+  justify-content: center;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+.btn-more {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 18px 26px 18px 24px;
-  font: inherit;
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.4;
-  text-align: start;
-  color: var(--fq-ink);
-  background: none;
-  border: 0;
+  gap: 8px;
+  padding: 13px 28px;
+  border: 1px solid var(--color-line, #e8e9ee);
   border-radius: 10px;
-  cursor: pointer;
-  transition: color .2s;
+  background: #fff;
+  color: var(--fq-ink);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(20, 23, 40, .05);
+  transition: border-color .2s, color .2s;
 }
 
-.q-btn:hover {
+.btn-more:hover {
+  border-color: color-mix(in srgb, var(--fq-brand) 35%, #fff);
   color: var(--fq-brand);
 }
 
-.q-btn:focus-visible {
+.btn-more:focus-visible {
   outline: 2px solid var(--fq-brand);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
-.chev {
-  width: 21px;
-  height: 21px;
-  flex: none;
-  color: #4b5160;
-  transition: transform .35s var(--fq-ease), color .2s;
+.btn-more .ico {
+  width: 18px;
+  height: 18px;
+  transition: transform .25s var(--fq-ease);
 }
 
-.q-btn:hover .chev {
-  color: var(--fq-brand);
-}
-
-.open .chev {
-  transform: rotate(180deg);
-}
-
-/* The answer slides open: its row grows from nothing to its own height. */
-.a {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .4s var(--fq-ease);
-}
-
-.open .a {
-  grid-template-rows: 1fr;
-}
-
-.a-in {
-  min-height: 0;
-  overflow: hidden;
-}
-
-.a p {
-  margin: 0;
-  padding: 0 64px 24px 24px;
-  font-size: 15.5px;
-  line-height: 1.75;
-  color: var(--fq-muted);
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity .25s ease, transform .35s var(--fq-ease);
-}
-
-.open .a p {
-  margin-top: -6px;
-  opacity: 1;
-  transform: none;
-  transition-delay: .08s;
-}
-
-/* ---------- Reveal: questions rise in one after another ---------- */
-.fq--animate .item {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .7s var(--fq-ease), transform .7s var(--fq-ease), border-color .25s, box-shadow .3s;
-  transition-delay: calc(var(--i, 0) * 70ms), calc(var(--i, 0) * 70ms), 0s, 0s;
-}
-
-.fq--animate.in .item {
-  opacity: 1;
-  transform: none;
-}
-
-@media (max-width: 560px) {
-  .q-btn {
-    min-height: 62px;
-    padding: 16px 18px;
-    font-size: 16px;
-  }
-
-  .a p {
-    padding: 0 18px 20px;
-    font-size: 15px;
-  }
+.btn-more:hover .ico {
+  transform: translateX(3px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .a,
-  .a p,
-  .chev {
+  .btn-more,
+  .btn-more .ico {
     transition: none;
   }
 }
