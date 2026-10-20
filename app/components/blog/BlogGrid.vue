@@ -13,13 +13,15 @@ import type { BlogPost } from '~/utils/blog'
 
 defineProps<{
   posts: BlogPost[]
+  /** Passed to the feature card: load its photo lazily (the homepage). */
+  lazy?: boolean
 }>()
 </script>
 
 <template>
   <div class="grid">
     <template v-for="p in posts" :key="p.slug">
-      <BlogCardFeature v-if="p.card.kind === 'feature'" :post="p" class="cell feature" />
+      <BlogCardFeature v-if="p.card.kind === 'feature'" :post="p" :lazy="lazy" class="cell feature" />
       <BlogCardWide v-else-if="p.card.kind === 'wide'" :post="p" class="cell wide" />
       <BlogCardPromo v-else-if="p.card.kind === 'promo'" :post="p" :cta="p.card.cta" class="cell" />
       <BlogCardStat v-else-if="p.card.kind === 'stat'" :post="p" :value="p.card.value" :text="p.card.text" class="cell" />

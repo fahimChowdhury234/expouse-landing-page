@@ -8,8 +8,8 @@
  *
  * Answers follow expouse-landing/index.html's FAQ and the feature pages
  * (utils/features.ts). CONFIRM before launch: the launch time, the hardware
- * list, which lists can be imported, the languages beyond English and Arabic,
- * and the branded app (see docs/website-landing-page.md, "Claims to confirm").
+ * list, which lists can be imported and the languages beyond English and Arabic
+ * (see docs/website-landing-page.md, "Claims to confirm").
  */
 export interface Faq {
   q: string
@@ -18,7 +18,6 @@ export interface Faq {
 
 export interface FaqGroup {
   topic: string
-  icon: string
   items: Faq[]
 }
 
@@ -53,57 +52,50 @@ export const FAQS: Faq[] = [LAUNCH, BRANDING, OFFLINE, HARDWARE, IMPORT]
 export const FAQ_GROUPS: FaqGroup[] = [
   {
     topic: 'Getting started',
-    icon: 'lucide:rocket',
     items: [
       LAUNCH,
+      BRANDING,
       IMPORT,
       {
-        q: 'Do we need to install anything?',
-        a: 'No. Your team runs the event from the browser, exhibitors get their own portal, and attendees use the web app or the EXPOUSE app on iOS and Android. For badge printing you only need Google Chrome and a badge printer.',
-      },
-      {
-        q: 'Can we see EXPOUSE before we decide?',
-        a: 'Yes. Book a 30-minute call and we will walk you through how your event would run, from the registration form to the final report.',
+        q: 'Do you help us set up the first event?',
+        a: 'Yes. We help you import your lists, set up registration and badges, and train your gate staff before the doors open. Nothing to install: your team works in the browser and attendees use the web app or the EXPOUSE app on iOS and Android.',
       },
     ],
   },
   {
-    topic: 'Registration & tickets',
-    icon: 'lucide:clipboard-list',
+    topic: 'Check-in & badges',
     items: [
-      {
-        q: 'Can different guest types see different questions?',
-        a: 'Yes. Add fields, logic and ticket types without code. Visitors, exhibitors and media each follow their own path through the same form and only see the questions that matter to them.',
-      },
-      {
-        q: 'Can we sell paid tickets?',
-        a: 'Yes. Offer free, paid and group tickets with early-bird pricing and promo codes. Invoices and receipts go out automatically.',
-      },
-      {
-        q: 'What do attendees get after they register?',
-        a: 'A QR badge by email straight away. They can log in to the attendee app with the same email, so their badge, agenda and account are ready before they arrive.',
-      },
-    ],
-  },
-  {
-    topic: 'Badges & check-in',
-    icon: 'lucide:scan-line',
-    items: [
-      HARDWARE,
       OFFLINE,
+      HARDWARE,
       {
-        q: 'Can we design a different badge for each guest type?',
-        a: 'Yes. Design badges per guest type with your own layout, colors and logos. Names, companies, role colors and the QR code fill in automatically from registration.',
+        q: 'Can attendees print their own badge?',
+        a: 'Yes. At a self-service kiosk attendees scan the QR code from their confirmation email and walk away with a printed badge in seconds, with their name, company, role color and QR code.',
       },
       {
-        q: 'Can we control access to halls and sessions?',
-        a: 'Yes. Staff scan badges at hall entrances and session rooms, and the result shows in under a second with clear allow and deny screens.',
+        q: 'Can we design a different badge for each role?',
+        a: 'Yes. Design a badge per guest type with your own layout, colors and logos. The details fill in automatically from registration, and staff at hall and session doors see a clear allow or deny screen in under a second.',
       },
     ],
   },
   {
-    topic: 'Exhibitors',
-    icon: 'lucide:store',
+    topic: 'Apps & engagement',
+    items: [
+      {
+        q: 'Do attendees need a password for the app?',
+        a: 'No. Attendees log in with the email they registered with and never need a password. Their agenda, QR badge, exhibitors, networking and live sessions are all in one app.',
+      },
+      {
+        q: 'Do sessions have live Q&A and polls?',
+        a: 'Yes. Every session has its own chat, Q&A and live polls, with moderation built in. Speakers see the approved questions and poll results on their own screen.',
+      },
+      {
+        q: 'Can we send announcements during the event?',
+        a: 'Yes. Share announcements, photos and sponsor posts in the app\'s live feed, with push notifications for what matters, like a room change or a session about to start.',
+      },
+    ],
+  },
+  {
+    topic: 'Exhibitors & meetings',
     items: [
       {
         q: 'What can exhibitors do in their portal?',
@@ -113,62 +105,40 @@ export const FAQ_GROUPS: FaqGroup[] = [
         q: 'How do exhibitors capture leads?',
         a: 'Booth staff scan a visitor\'s badge with their phone, rate the lead and add notes or answers to custom questions. All leads land in one list they can export to their CRM the same day.',
       },
-    ],
-  },
-  {
-    topic: 'Attendee app & networking',
-    icon: 'lucide:smartphone',
-    items: [
       {
-        q: 'Do attendees need a password?',
-        a: 'No. Attendees log in with their email and never need a password. Their agenda, QR badge, exhibitors, networking and live sessions are all in one app.',
-      },
-      {
-        q: 'Can attendees book meetings with each other?',
-        a: 'Yes. People get suggestions based on their profile and interests, request a time slot and place, and the other person accepts, declines or suggests a new time. You can set how many meetings each ticket or package can request.',
-      },
-      {
-        q: 'Do sessions have live Q&A and polls?',
-        a: 'Yes. Every session has its own chat, Q&A and live polls, with moderation built in. Speakers see the approved questions and poll results on their own screen.',
+        q: 'Can attendees book meetings with exhibitors?',
+        a: 'Yes. People get suggestions based on their profile and interests, request a time slot and place, and the other side accepts, declines or suggests a new time. You set how many meetings each ticket or exhibitor package can request.',
       },
     ],
   },
   {
-    topic: 'Branding & languages',
-    icon: 'lucide:globe',
+    topic: 'Languages & region',
     items: [
-      BRANDING,
       {
         q: 'Which languages are supported?',
         a: 'English and Arabic, with Arabic laid out right to left across the website, the app, the emails and the printed badges. Other languages, such as French, Spanish and Bengali, can be switched on for your event, and each attendee picks their own.',
       },
       {
-        q: 'Can we have our own branded app?',
-        a: 'On the Organizer and Enterprise plans, attendees get the event app in your branding on iOS and Android. Talk to us about what fits your event.',
+        q: 'Can visitors register in Arabic?',
+        a: 'Yes. Registration forms offer each visitor their language, and an Arabic form switches to a right-to-left layout automatically. Their badge, emails and app follow the language they chose.',
       },
     ],
   },
   {
-    topic: 'Security & data',
-    icon: 'lucide:shield-check',
+    topic: 'Data & security',
     items: [
       {
         q: 'How is our data kept separate from other organizers?',
-        a: 'Each organization\'s data is kept apart at the database level, so no other organizer can ever see your attendees, exhibitors or reports.',
+        a: 'Each organization\'s data is kept apart at the database level, so no other organizer can see your attendees, exhibitors or reports. Badge QR codes carry encrypted tokens, so copied or shared badges are stopped at the gate.',
       },
       {
         q: 'Can we limit what each staff member can see?',
         a: 'Yes. With role-based access you choose exactly which pages each staff member can view, edit or export.',
       },
-      {
-        q: 'Can badges be copied or shared?',
-        a: 'Badge QR codes carry encrypted tokens, so copied or shared badges are stopped at the gate.',
-      },
     ],
   },
   {
-    topic: 'Pricing & support',
-    icon: 'lucide:life-buoy',
+    topic: 'Pricing & plans',
     items: [
       {
         q: 'How much does EXPOUSE cost?',

@@ -2,15 +2,16 @@
 /**
  * 11 · From the blog.
  *
- * The three latest posts from utils/blog.ts as photo cards (BlogCard), under a
- * centred heading like the other home sections, with a button to /blog. The
- * cards rise in one after another when they scroll into view; without JS, with
- * reduced motion, or when they are already on screen at load, they are simply
- * shown.
+ * The first four posts from utils/blog.ts in the /blog bento (BlogGrid): the
+ * lead story large, a tall photo card, then a guide and a research stat
+ * stacked. The heading sits left with "View all articles" on the right. The
+ * grid rises in when it scrolls into view; without JS, with reduced motion,
+ * or when it is already on screen at load, it is simply shown.
  */
 import { BLOG_POSTS } from '~/utils/blog'
 
-const POSTS = [...BLOG_POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
+/** The /blog grid's opening four: feature, tall, promo and stat fill one row of the bento. */
+const POSTS = BLOG_POSTS.slice(0, 4)
 
 /* ---------------- Reveal ---------------- */
 const grid = ref<HTMLElement | null>(null)
@@ -43,19 +44,20 @@ onBeforeUnmount(() => {
   <section id="blog" class="bh" aria-labelledby="bh-title">
     <div class="bh-rail">
       <header class="bh-head">
-        <p class="bh-eyebrow">Blog</p>
-        <h2 id="bh-title" class="bh-title">Ideas for running <br>better events</h2>
-        <p class="bh-sub">Guides, playbooks and lessons from organizers across the region.</p>
+        <div class="bh-intro">
+          <p class="bh-eyebrow">From the blog</p>
+          <h2 id="bh-title" class="bh-title">Ideas for running better events</h2>
+          <p class="bh-sub">Playbooks, research and guides from the EXPOUSE team.</p>
+        </div>
+
+        <NuxtLink to="/blog" class="btn-all">
+          View all articles
+          <Icon name="lucide:arrow-right" class="ico" />
+        </NuxtLink>
       </header>
 
-      <ul ref="grid" class="grid" :class="{ 'bh--animate': animate, in: revealed }">
-        <li v-for="(p, i) in POSTS" :key="p.slug" class="item" :style="{ '--i': i }">
-          <BlogCard :post="p" as="h3" />
-        </li>
-      </ul>
-
-      <div class="more">
-        <NuxtLink to="/blog" class="btn-more">Read all articles</NuxtLink>
+      <div ref="grid" class="bh-grid" :class="{ 'bh--animate': animate, in: revealed }">
+        <BlogGrid :posts="POSTS" lazy />
       </div>
     </div>
   </section>
@@ -79,66 +81,49 @@ onBeforeUnmount(() => {
   padding: clamp(56px, 7vw, 88px) clamp(12px, 3vw, 40px);
 }
 
-/* ---------- Heading ---------- */
+/* ---------- Heading: left, with the link to /blog on the right ---------- */
 .bh-head {
-  max-width: 720px;
-  margin: 0 auto clamp(32px, 4.5vw, 56px);
-  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-bottom: clamp(28px, 3.6vw, 40px);
+}
+
+.bh-intro {
+  min-width: 0;
 }
 
 .bh-eyebrow {
   margin: 0;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 1.5;
   color: var(--bh-brand);
 }
 
 .bh-title {
-  margin: 8px 0 0;
-  font-size: clamp(28px, 3.4vw, 40px);
+  margin: 6px 0 0;
+  font-size: clamp(30px, 3.6vw, 44px);
   font-weight: 800;
   line-height: 1.12;
-  letter-spacing: -.03em;
+  letter-spacing: -.02em;
   text-wrap: balance;
 }
 
 .bh-sub {
-  margin: 12px auto 0;
-  max-width: 640px;
+  margin: 10px 0 0;
   font-size: 17px;
   line-height: 1.6;
   color: var(--bh-muted);
 }
 
-/* ---------- Cards ---------- */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.item {
-  display: flex;
-  min-width: 0;
-}
-
-.item > * {
-  flex: 1;
-}
-
-.more {
-  display: flex;
-  justify-content: center;
-  margin-top: clamp(28px, 4vw, 40px);
-}
-
-.btn-more {
+.btn-all {
+  flex: none;
   display: inline-flex;
   align-items: center;
-  padding: 13px 32px;
+  gap: 8px;
+  padding: 12px 22px;
   border: 1px solid var(--bh-line);
   border-radius: 10px;
   background: #fff;
@@ -150,52 +135,49 @@ onBeforeUnmount(() => {
   transition: border-color .2s, color .2s;
 }
 
-.btn-more:hover {
+.btn-all:hover {
   border-color: color-mix(in srgb, var(--bh-brand) 35%, #fff);
   color: var(--bh-brand);
 }
 
-.btn-more:focus-visible {
+.btn-all:focus-visible {
   outline: 2px solid var(--bh-brand);
   outline-offset: 3px;
 }
 
-/* ---------- Reveal: cards rise in one after another ---------- */
-.bh--animate .item {
+.btn-all .ico {
+  width: 18px;
+  height: 18px;
+  transition: transform .25s var(--bh-ease);
+}
+
+.btn-all:hover .ico {
+  transform: translateX(3px);
+}
+
+/* ---------- Reveal: the grid rises in ---------- */
+.bh--animate {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity .8s var(--bh-ease), transform .8s var(--bh-ease);
-  transition-delay: calc(var(--i, 0) * 90ms);
 }
 
-.bh--animate.in .item {
+.bh--animate.in {
   opacity: 1;
   transform: none;
 }
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  /* Two across: the third card would sit alone, so it waits for /blog. */
-  .item:nth-child(3) {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .item:nth-child(3) {
-    display: flex;
+/* Phones: the link drops under the heading. */
+@media (max-width: 720px) {
+  .bh-head {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-more {
+  .btn-all,
+  .btn-all .ico {
     transition: none;
   }
 }

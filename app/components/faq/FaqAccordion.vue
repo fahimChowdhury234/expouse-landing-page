@@ -8,6 +8,7 @@
  *
  * `animate` hides the questions and `revealed` lets them rise in one after
  * another; the parent decides when (it watches the list scroll into view).
+ * `highlight` marks a search term wherever it appears (/faq's search).
  */
 import type { Faq } from '~/utils/faqs'
 
@@ -19,16 +20,26 @@ const props = withDefaults(defineProps<{
   initialOpen?: number | null
   animate?: boolean
   revealed?: boolean
+  highlight?: string
 }>(), {
   initialOpen: 0,
   animate: false,
   revealed: false,
+  highlight: '',
 })
 
 const open = ref<number | null>(props.initialOpen)
 
 function toggle(i: number) {
   open.value = open.value === i ? null : i
+}
+
+/** `text` split around the search term, each part flagged when it matches. */
+function parts(text: string) {
+  const term = props.highlight.trim()
+  if (!term) return [{ text, hit: false }]
+  const re = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
+  return text.split(re).filter(Boolean).map(t => ({ text: t, hit: t.toLowerCase() === term.toLowerCase() }))
 }
 </script>
 
@@ -44,13 +55,13 @@ function toggle(i: number) {
           :aria-controls="`${idPrefix}-a${i}`"
           @click="toggle(i)"
         >
-          <span>{{ f.q }}</span>
+          <span><component :is="p.hit ? 'mark' : 'span'" v-for="(p, k) in parts(f.q)" :key="k">{{ p.text }}</component></span>
           <Icon name="lucide:chevron-down" class="chev" />
         </button>
       </h3>
       <div :id="`${idPrefix}-a${i}`" class="a" role="region" :aria-labelledby="`${idPrefix}-q${i}`" :aria-hidden="open !== i">
         <div class="a-in">
-          <p>{{ f.a }}</p>
+          <p><component :is="p.hit ? 'mark' : 'span'" v-for="(p, k) in parts(f.a)" :key="k">{{ p.text }}</component></p>
         </div>
       </div>
     </li>
@@ -169,6 +180,14 @@ function toggle(i: number) {
   opacity: 1;
   transform: none;
   transition-delay: .08s;
+}
+
+/* A search match. */
+mark {
+  padding: 0 2px;
+  color: inherit;
+  background: color-mix(in srgb, var(--fa-brand) 16%, #fff);
+  border-radius: 3px;
 }
 
 /* ---------- Reveal: questions rise in one after another ---------- */

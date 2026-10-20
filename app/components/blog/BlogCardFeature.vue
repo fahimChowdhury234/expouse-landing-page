@@ -4,12 +4,14 @@ import type { BlogPost } from '~/utils/blog'
 
 defineProps<{
   post: BlogPost
+  /** Further down a page (the homepage), load the photo lazily instead of first. */
+  lazy?: boolean
 }>()
 </script>
 
 <template>
   <NuxtLink :to="`/blog/${post.slug}`" class="card">
-    <img :src="post.image" alt="" class="img" width="551" height="452" fetchpriority="high">
+    <img :src="post.image" alt="" class="img" width="551" height="452" :loading="lazy ? 'lazy' : undefined" :fetchpriority="lazy ? undefined : 'high'">
     <span class="shade" aria-hidden="true" />
 
     <span class="body">

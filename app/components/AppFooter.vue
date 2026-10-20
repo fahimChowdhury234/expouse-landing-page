@@ -6,8 +6,9 @@
  * store buttons, then four columns of links. Bottom: the copyright, the
  * English / Arabic switch and the social links. Under it all, a giant
  * EXPOUSE wordmark: when it scrolls into view its letters rise in one after
- * another, then a soft light passes along them every few seconds, and a
- * letter lifts when the pointer is over it. With reduced motion it is still.
+ * another, then a soft light passes along them every few seconds. With a
+ * mouse over it, a brand-colour spotlight follows the pointer and lights the
+ * letters beneath it. With reduced motion it is still.
  *
  * Destinations this site has no page for yet (about, privacy, terms, stores,
  * socials, the Arabic site) come from runtimeConfig.public and link to "#"
@@ -95,8 +96,33 @@ onMounted(() => {
   observer.observe(el)
 })
 
+/* ---------- Spotlight: follows a mouse pointer over the wordmark ---------- */
+const lit = ref(false)
+let spot = 0
+let last: PointerEvent | null = null
+
+function onEnter(e: PointerEvent) {
+  if (e.pointerType === 'mouse') lit.value = true
+}
+
+/** One position update per frame, written straight to CSS variables. */
+function onMove(e: PointerEvent) {
+  if (e.pointerType !== 'mouse') return
+  last = e
+  if (spot) return
+  spot = requestAnimationFrame(() => {
+    spot = 0
+    const el = mark.value
+    if (!el || !last) return
+    const r = el.getBoundingClientRect()
+    el.style.setProperty('--x', `${last.clientX - r.left}px`)
+    el.style.setProperty('--y', `${last.clientY - r.top}px`)
+  })
+}
+
 onBeforeUnmount(() => {
   observer?.disconnect()
+  cancelAnimationFrame(spot)
 })
 </script>
 
@@ -159,8 +185,20 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- ---------- The giant wordmark ---------- -->
-    <div ref="mark" class="mark" :class="{ 'ft--animate': animate, in: revealed }" aria-hidden="true">
+    <div
+      ref="mark"
+      class="mark"
+      :class="{ 'ft--animate': animate, in: revealed, lit }"
+      aria-hidden="true"
+      @pointerenter="onEnter"
+      @pointermove="onMove"
+      @pointerleave="lit = false"
+    >
       <span v-for="(ch, i) in LETTERS" :key="i" class="ch" :style="{ '--i': i }">{{ ch }}</span>
+      <!-- The same letters in brand colour, shown only inside the spotlight. -->
+      <span class="glow">
+        <span v-for="(ch, i) in LETTERS" :key="i" class="ch-lit">{{ ch }}</span>
+      </span>
     </div>
   </footer>
 </template>
@@ -411,6 +449,9 @@ onBeforeUnmount(() => {
 
 /* ---------- The giant wordmark ---------- */
 .mark {
+  --x: 50%;
+  --y: 50%;
+  position: relative;
   display: flex;
   justify-content: center;
   margin-top: clamp(12px, 3vw, 36px);
@@ -432,12 +473,37 @@ onBeforeUnmount(() => {
   background-clip: text;
   animation: ft-shine 7s ease-in-out infinite;
   animation-delay: calc(1.2s + var(--i, 0) * .11s);
-  transition: transform .45s var(--ft-ease), filter .45s;
 }
 
-.ch:hover {
-  transform: translateY(-.06em);
-  filter: drop-shadow(0 18px 24px rgba(99, 102, 241, .18));
+/*
+ * The spotlight: a copy of the word laid exactly over it (same box, same
+ * letters), filled with the brand gradient and masked to a soft circle at the
+ * pointer. It fades in while a mouse is over the wordmark.
+ */
+.glow {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  padding: inherit;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-mask-image: radial-gradient(circle 1.1em at var(--x) var(--y), #000 0%, rgba(0, 0, 0, .55) 45%, transparent 100%);
+  mask-image: radial-gradient(circle 1.1em at var(--x) var(--y), #000 0%, rgba(0, 0, 0, .55) 45%, transparent 100%);
+  transition: opacity .45s ease;
+}
+
+.lit .glow {
+  opacity: 1;
+}
+
+.ch-lit {
+  display: inline-block;
+  padding-bottom: .06em;
+  color: transparent;
+  background: linear-gradient(100deg, #9a8cf8, var(--ft-brand) 50%, #4f3fd1);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 @keyframes ft-shine {
@@ -454,13 +520,13 @@ onBeforeUnmount(() => {
 .ft--animate.in .ch {
   opacity: 1;
   transform: none;
-  transition: opacity .8s var(--ft-ease), transform .9s var(--ft-ease), filter .45s;
-  transition-delay: calc(var(--i, 0) * 70ms), calc(var(--i, 0) * 70ms), 0s;
+  transition: opacity .8s var(--ft-ease), transform .9s var(--ft-ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
 }
 
-.ft--animate.in .ch:hover {
-  transform: translateY(-.06em);
-  transition-delay: 0s;
+/* No spotlight before the letters have risen in. */
+.ft--animate:not(.in) .glow {
+  display: none;
 }
 
 /* ---------- Responsive ---------- */
@@ -503,8 +569,8 @@ onBeforeUnmount(() => {
     transition: none;
   }
 
-  .ch:hover {
-    transform: none;
+  .glow {
+    display: none;
   }
 
   .link::after,
