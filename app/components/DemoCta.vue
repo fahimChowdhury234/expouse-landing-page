@@ -1,134 +1,79 @@
 <script setup lang="ts">
-/**
- * 12 · Book a demo.
- *
- * A wide brand banner before the FAQ: a headline, a line on what the demo
- * covers, one button to the contact page (/contact-us) and a short note on
- * what to expect. Four event photos from the gallery (public/images/gallery)
- * are pinned at the sides like prints, with two small product cards floating
- * over them (a check-in, a new lead); the middle stays clear for the copy.
- *
- * Motion, all of it gentle: on the way in the copy rises line by line, the
- * prints swing in from the sides and the cards pop up last; after that the
- * prints and cards drift on their own, a soft light moves slowly across the
- * banner, and the whole scene leans a little toward the pointer (each layer
- * by its own depth). With reduced motion nothing moves; without JS, or when
- * the banner is already on screen at load, it is simply shown.
- */
-const PHOTOS = [
-  { src: '/images/gallery/event-4.webp', cls: 'l1', depth: 10 },
-  { src: '/images/gallery/event-5.webp', cls: 'l2', depth: 16 },
-  { src: '/images/gallery/event-6.webp', cls: 'r1', depth: 12 },
-  { src: '/images/gallery/event-1.webp', cls: 'r2', depth: 18 },
-]
-
-const banner = ref<HTMLElement | null>(null)
-const animate = ref(false)
-const revealed = ref(false)
-let observer: IntersectionObserver | null = null
-
-/* ---------- Pointer parallax: --mx / --my run from -1 to 1 across the banner ---------- */
-let frame = 0
-let px = 0
-let py = 0
-
-function onMove(e: PointerEvent) {
-  const el = banner.value
-  if (!el || e.pointerType !== 'mouse') return
-  const r = el.getBoundingClientRect()
-  px = ((e.clientX - r.left) / r.width) * 2 - 1
-  py = ((e.clientY - r.top) / r.height) * 2 - 1
-  if (!frame) frame = requestAnimationFrame(apply)
-}
-
-function onLeave() {
-  px = 0
-  py = 0
-  if (!frame) frame = requestAnimationFrame(apply)
-}
-
-function apply() {
-  frame = 0
-  banner.value?.style.setProperty('--mx', px.toFixed(3))
-  banner.value?.style.setProperty('--my', py.toFixed(3))
-}
-
-const still = ref(true)
-
-onMounted(() => {
-  const el = banner.value
-  if (!el) return
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  still.value = false
-  if (!('IntersectionObserver' in window)) return
-  // Already on screen (a tall window, a restored scroll): leave it be rather than hide it.
-  if (el.getBoundingClientRect().top < window.innerHeight) return
-
-  animate.value = true
-  observer = new IntersectionObserver(([e]) => {
-    if (!e?.isIntersecting) return
-    observer?.disconnect()
-    revealed.value = true
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0 })
-  observer.observe(el)
-})
-
-onBeforeUnmount(() => {
-  observer?.disconnect()
-  if (frame) cancelAnimationFrame(frame)
-})
+const NAV = ['Dashboard', 'Attendees', 'Sessions', 'Exhibitors', 'Badges', 'Insights']
+const BARS = [35, 55, 78, 62, 72, 88, 67, 44, 31, 25, 38]
+const PEOPLE = ['Mariam Al Balushi', 'Layla Haddad', 'Omar Saleh', 'Sara Ali', 'Khalid Nasser']
 </script>
 
 <template>
   <section id="book-demo" class="dc" aria-labelledby="dc-title">
     <div class="dc-rail">
-      <div
-        ref="banner"
-        class="banner"
-        :class="{ 'dc--animate': animate, in: revealed, still }"
-        @pointermove="still ? undefined : onMove($event)"
-        @pointerleave="still ? undefined : onLeave()"
-      >
-        <i class="glow" aria-hidden="true" />
-        <i class="dots" aria-hidden="true" />
-
-        <div class="scene" aria-hidden="true">
-          <figure
-            v-for="(p, i) in PHOTOS"
-            :key="p.cls"
-            class="photo"
-            :class="p.cls"
-            :style="{ '--i': i, '--d': p.depth }"
-          >
-            <span class="print">
-              <img :src="p.src" alt="" loading="lazy" decoding="async">
-            </span>
-          </figure>
-
-          <div class="chip c-in" style="--i: 0; --d: 22">
-            <span class="dot ok"><Icon name="lucide:check" class="ico" /></span>
-            <span class="txt"><b>Checked in</b><small>Gate A · 09:41</small></span>
+      <div class="banner">
+        <div class="copy">
+          <p class="eyebrow">Book a call</p>
+          <h2 id="dc-title">See your event<br>running on EXPOUSE<br>in 30 minutes</h2>
+          <p class="sub">Tell us what you're planning. We'll walk you through it live, from the registration form to the
+            report your exhibitors get afterwards.</p>
+          <div class="contact">
+            <NuxtLink to="/contact-us" class="cta">Book a call
+              <Icon name="lucide:arrow-right" />
+            </NuxtLink>
+            <span>or email <a href="mailto:hello@expouse.com">hello@expouse.com</a></span>
           </div>
-          <div class="chip c-lead" style="--i: 1; --d: 26">
-            <span class="dot hot"><Icon name="lucide:funnel" class="ico" /></span>
-            <span class="txt"><b>New lead · Omar Saleh</b><small>Booth B-214 · <em>HOT 92</em></small></span>
-          </div>
+          <ul class="notes">
+            <li>
+              <Icon name="lucide:clock-3" />30-minute call
+            </li>
+            <li>
+              <Icon name="lucide:calendar-days" />We reply within a working day
+            </li>
+          </ul>
         </div>
 
-        <div class="copy">
-          <span class="mark rise" style="--k: 0"><AppLogo class="logo" /></span>
-          <h2 id="dc-title" class="title rise" style="--k: 1">See your event running on EXPOUSE in 30&nbsp;minutes</h2>
-          <p class="sub rise" style="--k: 2">Tell us what you're planning. We'll walk you through it live, from the registration form to the report your exhibitors get afterwards.</p>
-          <div class="rise" style="--k: 3">
-            <NuxtLink to="/contact-us" class="cta">
-              <span>Book a call</span>
-              <Icon name="lucide:arrow-right" class="ico" />
-            </NuxtLink>
+        <div class="product-scene" aria-hidden="true">
+          <div class="mini-window">
+            <div class="browser-bar"><span /><span /><span /><b>dashboard.expouse.com/leads</b></div>
+            <div class="mini-content">
+              <aside><strong>EXPOUSE</strong><i v-for="n in 5" :key="n" /></aside>
+              <main><b>Booth B-14 · Leads</b>
+                <div class="mini-stats"><em>86<small>Leads today</small></em><em class="purple">24<small>Hot
+                      leads</small></em><em>12<small>Meetings booked</small></em></div>
+                <div class="search">Search leads by name or company</div>
+              </main>
+            </div>
           </div>
-          <ul class="notes rise" style="--k: 4">
-            <li><Icon name="lucide:clock" class="ico" />30-minute call</li>
-            <li><Icon name="lucide:calendar-check" class="ico" />We reply within a working day</li>
-          </ul>
+
+          <div class="dashboard">
+            <div class="browser-bar"><span /><span /><span /><b>dashboard.expouse.com</b></div>
+            <div class="dashboard-body">
+              <aside class="side"><strong>EXPOUSE</strong><span v-for="(item, i) in NAV" :key="item"
+                  :class="{ active: i === 0 }"><i />{{ item }}</span></aside>
+              <main class="panel">
+                <div class="panel-head"><b>Event dashboard</b><small>Search</small></div>
+                <div class="metrics">
+                  <div class="metric chosen"><small>Registered</small><b>4,812</b></div>
+                  <div class="metric"><small>Checked in</small><b>3,206</b></div>
+                  <div class="metric"><small>Exhibitors</small><b>148</b></div>
+                  <div class="metric"><small>Meetings</small><b>926</b></div>
+                </div>
+                <div class="data-row">
+                  <div class="chart"><b>Check-ins today</b>
+                    <div class="bars"><i v-for="(height, i) in BARS" :key="i" :class="{ selected: i === 5 }"
+                        :style="{ height: `${height}%` }" /></div>
+                  </div>
+                  <div class="registrations"><b>Latest registrations</b><span v-for="(person, i) in PEOPLE"
+                      :key="person"><i>{{ person[0] }}</i>{{ person }}<small>{{ i === 2 ? 'VIP' : i === 1 ? 'Exhibitor'
+                        : 'Visitor' }}</small></span></div>
+                </div>
+              </main>
+            </div>
+          </div>
+
+          <div class="toast lead"><i>
+              <Icon name="lucide:funnel" />
+            </i><span><b>New lead · Omar Saleh</b><small>Booth B-214 · <em>HOT 92</em></small></span></div>
+          <div class="toast checked"><i>
+              <Icon name="lucide:check" />
+            </i><span><b>Checked in</b><small>Gate A · 09:41</small></span></div>
         </div>
       </div>
     </div>
@@ -136,12 +81,9 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-/* Tokens: the app's theme where it has one (main.css), otherwise the values from the design. */
 .dc {
-  --dc-brand: var(--color-brand, #6366f1);
-  --dc-brand-dark: var(--color-brand-dark, #4f46e5);
-  --dc-ink: var(--color-ink, #1f2430);
-  --dc-ease: cubic-bezier(.22, .8, .24, 1);
+  --purple: #6550e8;
+  --ink: #212529;
   background: #fff;
 }
 
@@ -151,448 +93,652 @@ onBeforeUnmount(() => {
   padding: clamp(40px, 6vw, 72px) clamp(12px, 3vw, 40px) 0;
 }
 
-/* ---------- Banner ---------- */
 .banner {
-  --mx: 0;
-  --my: 0;
   position: relative;
-  isolation: isolate;
-  min-height: 470px;
-  display: grid;
-  place-items: center;
+  min-height: 460px;
   overflow: hidden;
-  padding: 60px 24px;
-  border: 1px solid #e7e3fb;
-  border-radius: 24px;
-  background: linear-gradient(135deg, #efecfe 0%, #f8f7ff 46%, #e8e4fd 100%);
+  border: 1px solid #e5e3f4;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f7f6ff 0%, #f1effd 100%);
+  box-shadow: 0 22px 50px -42px rgba(59, 44, 143, .42);
 }
 
-/* A soft light that wanders slowly behind everything. */
-.glow {
+.banner::before {
+  content: "";
   position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: 50%;
-  width: 760px;
-  height: 520px;
-  margin: -260px 0 0 -380px;
+  right: -10%;
+  bottom: -42%;
+  width: 67%;
+  height: 105%;
   border-radius: 50%;
-  background:
-    radial-gradient(closest-side at 30% 40%, rgba(167, 139, 250, .42), transparent),
-    radial-gradient(closest-side at 72% 62%, rgba(99, 102, 241, .28), transparent);
-  filter: blur(20px);
-  animation: dc-wander 16s ease-in-out infinite alternate;
+  background: radial-gradient(circle, rgba(153, 139, 255, .17), transparent 66%);
+  filter: blur(5px);
 }
 
-/* A faint dot grid, strongest in the middle. */
-.dots {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background-image: radial-gradient(rgba(99, 102, 241, .16) 1px, transparent 1.4px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(60% 70% at 50% 50%, #000, transparent);
-  -webkit-mask-image: radial-gradient(60% 70% at 50% 50%, #000, transparent);
-}
-
-/* ---------- Copy ---------- */
 .copy {
   position: relative;
   z-index: 2;
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  width: 48%;
+  max-width: 510px;
+  padding: 56px clamp(24px,4.4vw,56px);
 }
 
-.mark {
-  display: grid;
-  place-items: center;
-  padding: 10px 16px;
-  background: rgba(255, 255, 255, .78);
-  border: 1px solid #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 24px -16px rgba(76, 61, 190, .45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+.eyebrow {
+  margin: 0;
+  color: var(--purple);
+  font-size: clamp(1rem, 1.25vw, 18px);
+  font-weight: 600;
 }
 
-.logo {
-  height: 22px;
-  width: auto;
-}
-
-.title {
-  margin: 24px 0 0;
-  font-size: clamp(28px, 3.4vw, 42px);
+h2 {
+  margin: 18px 0 0;
+  color: var(--ink);
+  font-size: clamp(2.2rem, 3.35vw, 42px);
   font-weight: 800;
   line-height: 1.14;
-  letter-spacing: -.03em;
-  color: var(--dc-ink);
-  text-wrap: balance;
+  letter-spacing: -.055em;
 }
 
 .sub {
-  margin: 14px 0 0;
-  max-width: 500px;
-  font-size: 16.5px;
-  line-height: 1.65;
-  color: #4b5160;
+  max-width: 470px;
+  margin: 20px 0 0;
+  color: #6b6e78;
+  font-size: clamp(1rem, 1.12vw, 16px);
+  line-height: 1.75;
 }
 
-/* The button, with a light that sweeps across it on hover. */
+.contact {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  color: #747681;
+  font-size: .98rem;
+}
+
+.contact a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.contact span a {
+  color: var(--purple);
+  font-size: 15px;
+}
+
 .cta {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 28px;
-  padding: 15px 28px;
-  overflow: hidden;
-  font-size: 16px;
-  font-weight: 700;
+  gap: 14px;
+  padding: 13px 24px;
+  border-radius: 6px;
   color: #fff;
+  background: var(--purple);
+  font-size: clamp(1rem, 1.15vw, 16px);
+  font-weight: 700;
   text-decoration: none;
-  background: var(--dc-brand);
-  border-radius: 999px;
-  box-shadow: 0 18px 34px -16px rgba(79, 70, 229, .7);
-  transition: background-color .2s, box-shadow .25s, transform .25s var(--dc-ease);
-}
-
-.cta::after {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 40%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent);
-  transform: translateX(-160%) skewX(-18deg);
+  /* box-shadow: 0 15px 24px -17px #3622aa; */
+  transition: transform .2s, background .2s;
 }
 
 .cta:hover {
-  background: var(--dc-brand-dark);
-  box-shadow: 0 22px 38px -16px rgba(79, 70, 229, .8);
+  background: #553ee0;
   transform: translateY(-2px);
 }
 
-.cta:hover::after {
-  transform: translateX(320%) skewX(-18deg);
-  transition: transform .8s var(--dc-ease);
-}
-
-.cta .ico {
-  width: 18px;
-  height: 18px;
-  transition: transform .25s var(--dc-ease);
-}
-
-.cta:hover .ico {
-  transform: translateX(3px);
-}
-
-.cta:focus-visible {
-  outline: 3px solid var(--dc-brand);
-  outline-offset: 3px;
+.cta :deep(svg) {
+  width: 23px;
+  height: 23px;
 }
 
 .notes {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 20px;
-  margin: 18px 0 0;
-  padding: 0;
+  gap: 22px;
+  margin: 34px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid #dfddec;
   list-style: none;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #5b6070;
+  color: #777985;
+  font-size: .89rem;
 }
 
 .notes li {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 9px;
 }
 
-.notes .ico {
-  width: 15px;
-  height: 15px;
-  color: var(--dc-brand);
+.notes :deep(svg) {
+  width: 20px;
+  height: 20px;
+  color: var(--purple);
 }
 
-/* ---------- Scene: prints at the sides, cards over them ---------- */
-.scene {
+/* Layered, intentionally illustrative product dashboard. */
+.product-scene {
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  inset: 0 0 0 45%;
+  overflow: hidden;
   pointer-events: none;
 }
 
-/* Each layer leans toward the pointer by its own depth (--d, in px at the banner's edge). */
-.photo,
-.chip {
+.dashboard,
+.mini-window {
   position: absolute;
-  transform: translate3d(calc(var(--mx) * var(--d) * 1px), calc(var(--my) * var(--d) * .6px), 0);
-  transition: transform .6s var(--dc-ease);
-}
-
-.photo {
-  --rot: 0deg;
-  margin: 0;
-}
-
-.print {
-  display: block;
-  padding: 8px 8px 24px;
+  overflow: hidden;
+  border: 1px solid #e1e1ed;
+  border-radius: 13px 13px 0 0;
   background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(31, 36, 48, .06), 0 26px 44px -24px rgba(49, 40, 140, .5);
-  rotate: var(--rot);
-  animation: dc-drift 8s ease-in-out infinite;
-  animation-delay: calc(var(--i, 0) * -2s);
-  transition: rotate .7s var(--dc-ease);
+  box-shadow: 0 3px 8px rgba(31, 27, 71, .04), 0 30px 60px -30px rgba(43, 36, 98, .34);
 }
 
-.print img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1.05;
-  object-fit: cover;
-  border-radius: 2px;
-  background: #e4e0fb;
-}
-
-/* Hovering the banner straightens the prints a little. */
-.banner:hover .print {
-  rotate: calc(var(--rot) * .4);
-}
-
-.l1 { --rot: -7deg; left: 3.5%; top: 10%; width: 150px; }
-.l2 { --rot: 6deg; left: 12.5%; top: 47%; width: 142px; }
-.r1 { --rot: 6deg; right: 13%; top: 8%; width: 138px; }
-.r2 { --rot: -6deg; right: 3.5%; top: 41%; width: 156px; }
-
-/* Small product cards floating over the prints. */
-.chip {
+.dashboard {
   z-index: 2;
+  right: -12%;
+  bottom: 0;
+  width: 94%;
+  height: 62%;
+}
+
+.mini-window {
+  z-index: 1;
+  right: -3%;
+  top: 10%;
+  width: 79%;
+  height: 33%;
+  opacity: .99;
+}
+
+.browser-bar {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px 10px 10px;
-  white-space: nowrap;
-  background: rgba(255, 255, 255, .94);
-  border: 1px solid #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 2px rgba(31, 36, 48, .05), 0 16px 32px -16px rgba(31, 36, 48, .28);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  height: 39px;
+  gap: 6px;
+  padding: 0 14px;
+  border-bottom: 1px solid #ececf3;
+  color: #787983;
+  background: #fdfdff;
 }
 
-.chip > * {
-  animation: dc-bob 6s ease-in-out infinite;
-  animation-delay: calc(var(--i, 0) * -3s);
+.browser-bar span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e5e5f5;
 }
 
-.c-in { left: 1.5%; bottom: 9%; }
-.c-lead { right: 2%; top: 5%; }
-
-.dot {
-  width: 30px;
-  height: 30px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  border-radius: 9px;
+.browser-bar b {
+  margin: 0 auto;
+  font-size: 11px;
+  font-weight: 500;
 }
 
-.dot .ico {
-  width: 15px;
-  height: 15px;
+.mini-window .browser-bar b {
+  font-size: 10px;
 }
 
-.dot.ok { color: #16a34a; background: #e7f8ee; }
-.dot.hot { color: #dc2626; background: #fdecec; }
-
-.txt {
-  display: grid;
-  line-height: 1.3;
+.dashboard-body,
+.mini-content {
+  display: flex;
+  height: calc(100% - 39px);
 }
 
-.txt b {
-  font-size: 13px;
+.side,
+.mini-content aside {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 17%;
+  padding: 12px 10px;
+  border-right: 1px solid #ececf3;
+  background: #fbfbfe;
+  gap: 6px;
+}
+
+.side strong,
+.mini-content aside strong {
+  padding: 5px;
+  border-radius: 4px;
+  color: #fff;
+  background: var(--purple);
+  font-size: 8px;
+  text-align: center;
+}
+
+.side span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 5px;
+  border-radius: 5px;
+  color: #83848d;
+  font-size: 8px;
+}
+
+.side span.active {
+  color: #3d3e47;
+  background: #fff;
   font-weight: 700;
-  color: var(--dc-ink);
+  box-shadow: 0 0 0 1px #ecebf5;
 }
 
-.txt small {
-  font-size: 11.5px;
-  color: #6b7280;
+.side i,
+.mini-content aside i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+  background: #dcd9fa;
 }
 
-.txt em {
-  padding: 0 6px;
-  font-size: 10.5px;
+.side .active i {
+  background: var(--purple);
+}
+
+.mini-content aside {
+  gap: 11px;
+}
+
+.mini-content main {
+  flex: 1;
+  padding: 11px;
+}
+
+.mini-content main>b {
+  color: #4b4c55;
+  font-size: 9px;
+}
+
+.mini-stats {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.mini-stats em {
+  display: grid;
+  flex: 1;
+  padding: 7px;
+  border: 1px solid #e9e8f2;
+  border-radius: 6px;
+  color: #272832;
+  font-size: 15px;
   font-style: normal;
-  font-weight: 700;
-  color: #dc2626;
-  background: #fdecec;
-  border-radius: 999px;
+  font-weight: 800;
 }
 
-@keyframes dc-drift {
-  50% { translate: 0 -7px; }
+.mini-stats small {
+  order: -1;
+  font-size: 6px;
+  font-weight: 600;
 }
 
-@keyframes dc-bob {
-  50% { transform: translateY(-5px); }
+.mini-stats .purple {
+  color: #fff;
+  background: var(--purple);
 }
 
-@keyframes dc-wander {
-  0% { transform: translate(-60px, -20px) scale(1); }
-  100% { transform: translate(60px, 24px) scale(1.12); }
+.search {
+  margin-top: 8px;
+  padding: 8px;
+  color: #9a9aa5;
+  background: #f6f5fb;
+  font-size: 7px;
 }
 
-/* ---------- Entrance: copy rises line by line, prints swing in, cards pop up ----------
- * The hidden state applies at once; only the reveal (.in) is animated. */
-.dc--animate .rise {
-  opacity: 0;
-  transform: translateY(18px);
+.panel {
+  flex: 1;
+  padding: 15px 16px;
+  min-width: 0;
 }
 
-.dc--animate .print {
-  opacity: 0;
-  transform: translateY(30px) scale(.86);
-  rotate: calc(var(--rot) * 2.4);
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #454650;
+  font-size: 12px;
 }
 
-.dc--animate .chip {
-  opacity: 0;
-  scale: .85;
+.panel-head small {
+  padding: 5px 12px;
+  border: 1px solid #e5e5ef;
+  border-radius: 6px;
+  color: #8b8b96;
+  font-size: 8px;
 }
 
-.dc--animate.in .rise,
-.dc--animate.in .print,
-.dc--animate.in .chip {
-  opacity: 1;
-  transform: none;
-  scale: 1;
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  margin-top: 18px;
 }
 
-.dc--animate.in .rise {
-  transition: opacity .7s var(--dc-ease), transform .7s var(--dc-ease);
-  transition-delay: calc(.05s + var(--k, 0) * 90ms);
+.metric {
+  display: grid;
+  gap: 4px;
+  min-height: 59px;
+  padding: 10px;
+  border: 1px solid #e8e7f0;
+  border-radius: 7px;
 }
 
-.dc--animate.in .print {
-  rotate: var(--rot);
-  transition: opacity .7s var(--dc-ease), transform .9s var(--dc-ease), rotate .9s var(--dc-ease);
-  transition-delay: calc(.2s + var(--i, 0) * 110ms);
+.metric small {
+  color: #767782;
+  font-size: 8px;
+  font-weight: 600;
 }
 
-.dc--animate.in .chip {
-  transition: opacity .5s var(--dc-ease), scale .6s var(--dc-ease), transform .6s var(--dc-ease);
-  transition-delay: calc(.8s + var(--i, 0) * 160ms), calc(.8s + var(--i, 0) * 160ms), 0s;
+.metric b {
+  color: #252631;
+  font-size: clamp(15px, 1.45vw, 26px);
+  line-height: 1;
 }
 
-/* After the entrance, hovering still straightens the prints, without waiting. */
-.dc--animate.in.banner:hover .print {
-  rotate: calc(var(--rot) * .4);
-  transition-delay: 0s;
+.metric.chosen {
+  color: #fff;
+  border-color: var(--purple);
+  background: var(--purple);
 }
 
-/* The pointer lean on the cards keeps working after the entrance. */
-.dc--animate.in .chip {
-  transform: translate3d(calc(var(--mx) * var(--d) * 1px), calc(var(--my) * var(--d) * .6px), 0);
+.metric.chosen small,
+.metric.chosen b {
+  color: #fff;
 }
 
-/* Narrower: smaller prints, the cards tucked in. */
-@media (max-width: 1100px) {
-  .l1, .r2 { width: 124px; }
-  .l2, .r1 { width: 116px; }
-  .l2 { left: 8%; }
-  .r1 { right: 10%; }
-  .c-lead { display: none; }
+.data-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(150px, .85fr);
+  gap: 10px;
+  margin-top: 12px;
 }
 
-/* Tablets and phones: three prints in a row above the copy; the cards put away. */
-@media (max-width: 860px) {
+.chart,
+.registrations {
+  min-height: 208px;
+  padding: 12px;
+  border: 1px solid #e8e7f0;
+  border-radius: 7px;
+  color: #41424b;
+  font-size: 10px;
+}
+
+.bars {
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
+  height: 164px;
+  padding-top: 15px;
+}
+
+.bars i {
+  width: min(8%, 22px);
+  border-radius: 4px 4px 2px 2px;
+  background: #e2dffa;
+}
+
+.bars i.selected {
+  background: var(--purple);
+}
+
+.registrations {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.registrations>b {
+  margin-bottom: 7px;
+}
+
+.registrations span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 27px;
+  border-top: 1px solid #f0eff5;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.registrations i {
+  display: grid;
+  width: 14px;
+  height: 14px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--purple);
+  background: #f0efff;
+  font-size: 7px;
+  font-style: normal;
+}
+
+.registrations small {
+  margin-left: auto;
+  color: #9899a3;
+  font-size: 7px;
+  font-weight: 400;
+}
+
+.toast {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 20px 14px 14px;
+  border: 1px solid #e5e4ee;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 16px 30px -20px rgba(24, 24, 55, .42);
+  color: #30313a;
+}
+
+.toast>i {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--purple);
+  background: #f2f0ff;
+}
+
+.toast :deep(svg) {
+  width: 20px;
+  height: 20px;
+}
+
+.toast span {
+  display: grid;
+  line-height: 1.32;
+}
+
+.toast b {
+  font-size: clamp(11px, 1vw, 16px);
+}
+
+.toast small {
+  color: #73747e;
+  font-size: clamp(9px, .85vw, 13px);
+}
+
+.toast em {
+  margin-left: 6px;
+  color: #e63c3c;
+  font-size: .85em;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.lead {
+  top: 4%;
+  right: 5%;
+}
+
+.checked {
+  bottom: 6%;
+  left: 4%;
+}
+
+.checked>i {
+  color: #10a56b;
+  background: #edf9f3;
+}
+
+@media (max-width: 1050px) {
   .banner {
-    min-height: 0;
-    padding: 36px 20px 40px;
-    gap: 26px;
+    min-height: 570px;
   }
 
-  .scene {
-    position: static;
-    display: flex;
-    justify-content: center;
+  .copy {
+    width: 50%;
+    padding-left: 42px;
   }
 
-  .photo {
-    position: static;
-    width: 108px;
-    transform: none;
+  .product-scene {
+    left: 43%;
   }
 
-  .photo + .photo {
-    margin-left: -14px;
+  .contact {
+    gap: 18px;
   }
 
-  .r2,
-  .chip {
+  .mini-window {
+    top: 11%;
+  }
+
+  .metrics {
+    gap: 5px;
+  }
+
+  .data-row {
+    grid-template-columns: 1fr;
+  }
+
+  .registrations {
     display: none;
   }
-
-  .l2 {
-    --rot: 2deg;
-    z-index: 1;
-  }
-
-  .print {
-    padding: 6px 6px 18px;
-  }
 }
 
-@media (max-width: 420px) {
-  .photo {
-    width: 92px;
+@media (max-width: 720px) {
+  .banner {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .copy {
+    width: auto;
+    padding: 48px 28px 38px;
+  }
+
+  .eyebrow {
+    font-size: 1.1rem;
+  }
+
+  h2 {
+    margin-top: 20px;
+    font-size: clamp(2.25rem, 10vw, 3.3rem);
   }
 
   .sub {
-    font-size: 15.5px;
+    margin-top: 24px;
+    font-size: 1rem;
+  }
+
+  .contact {
+    margin-top: 27px;
   }
 
   .cta {
-    width: 100%;
-    justify-content: center;
+    padding: 17px 25px;
   }
-}
 
-/* Reduced motion: everything holds still. */
-.still .glow,
-.still .print,
-.still .chip > * {
-  animation: none;
+  .notes {
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 22px;
+    font-size: .9rem;
+  }
+
+  .product-scene {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+  }
+
+  .dashboard {
+    right: -22%;
+    width: 96%;
+    height: 72%;
+  }
+
+  .mini-window {
+    top: 1%;
+    right: -10%;
+    width: 84%;
+    height: 31%;
+  }
+
+  .lead {
+    display: none;
+  }
+
+  .checked {
+    bottom: 4%;
+    left: 7%;
+  }
+
+  .panel {
+    padding: 11px;
+  }
+
+  .side {
+    padding: 10px 7px;
+  }
+
+  .side span {
+    font-size: 7px;
+  }
+
+  .side strong {
+    font-size: 7px;
+  }
+
+  .metrics {
+    margin-top: 9px;
+  }
+
+  .metric {
+    min-height: 43px;
+    padding: 6px;
+  }
+
+  .metric b {
+    font-size: 14px;
+  }
+
+  .chart {
+    min-height: 135px;
+  }
+
+  .bars {
+    height: 95px;
+  }
+
+  .data-row {
+    margin-top: 6px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glow,
-  .print,
-  .chip > * {
-    animation: none;
-  }
-
-  .print,
-  .photo,
-  .chip,
-  .cta,
-  .cta .ico,
-  .cta::after {
+  .cta {
     transition: none;
-  }
-
-  .banner:hover .print {
-    rotate: var(--rot);
   }
 }
 </style>
