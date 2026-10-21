@@ -12,9 +12,8 @@
  * focusing the card pauses the bar exactly where it is. With reduced motion or
  * without JS nothing advances and the first story is shown.
  *
- * DUMMY TESTIMONIALS: every person, company, quote and figure here is fictional
- * sample content (the events are the site's sample events, utils/events.ts).
- * Replace them with real testimonials we have permission to use before launch.
+ * The first story is the approved Urban October testimonial. The remaining
+ * sample stories should be replaced with approved customer testimonials before launch.
  */
 import { initials } from '~/utils/news'
 
@@ -22,7 +21,7 @@ type Story = {
   name: string
   role: string
   company: string
-  side: 'Organizer' | 'Exhibitor'
+  side: 'Organizer' | 'Exhibitor' | 'Partner'
   quote: string
   result: { value: string, label: string }
   event: { name: string, initial: string, color: string }
@@ -33,16 +32,17 @@ type Story = {
 const LOGISTICS = { name: 'Gulf Logistics Expo 2026', initial: 'L', color: '#0f766e' }
 const BUILD = { name: 'Muscat Build Week 2026', initial: 'M', color: '#be123c' }
 const FOOD = { name: 'Oman Food Festival 2027', initial: 'F', color: '#c2410c' }
+const URBAN_OCTOBER = { name: 'Urban October', initial: 'U', color: '#6452e7' }
 
 const STORIES: Story[] = [
   {
-    name: 'Nadia Rahman',
-    role: 'Event Director',
-    company: 'Horizon Exhibitions',
-    side: 'Organizer',
-    quote: 'Registration, badges and the attendee app finally live in one place. On opening morning the gates just kept moving, and my team spent the day with guests instead of fixing spreadsheets.',
-    result: { value: '90 sec', label: 'average wait at the gates on opening morning' },
-    event: LOGISTICS,
+    name: 'Paul Kallee-Grover MBE',
+    role: 'Founder and Managing Director',
+    company: 'Ki Partnerships Ltd',
+    side: 'Partner',
+    quote: 'EXPOUSE delivered a intuitive app that made Urban October easier to engage with at every stage. Before travelling, I could explore the programme and tailor the app to my interests from Moldova. In Oman, it gave me a clear, reliable source of up-to-date information throughout the event; afterwards, I could continue using it from the UK to follow up actions. The experience felt seamless, with everything easy to find and simple to manage. Most valuable was the way personalising my programme helped me focus on the people and discussions most relevant to my work, creating opportunities for more meaningful conversations. It is an excellent example of how well-designed technology can strengthen an event experience from preparation through to follow-up.',
+    result: { value: '3 countries', label: 'one connected experience before, during and after the event' },
+    event: URBAN_OCTOBER,
     tone: ['#8b7cf6', '#6452e7'],
   },
   {
