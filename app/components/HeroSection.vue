@@ -47,7 +47,7 @@ function scrollToNext() {
         <p class="fade-in" style="animation-delay: .45s">Registration, self check-in, floor plans, meetings and live insights on one connected platform, ready in days.</p>
 
         <div class="actions fade-in" style="animation-delay: .55s">
-          <NuxtLink to="/#book-demo" class="primary-action">Book a demo</NuxtLink>
+          <NuxtLink to="/contact-us" class="primary-action">Book a demo</NuxtLink>
           <NuxtLink to="/#platform" class="text-action">
             Explore the platform
             <Icon name="lucide:arrow-right" aria-hidden="true" />
