@@ -3,10 +3,44 @@
  * present as real HTML, so it remains available with video or motion disabled. */
 const video = ref<HTMLVideoElement | null>(null)
 const paused = ref(false)
-const HEADLINE = [
+
+interface HeroData {
+  headline_lines?: string[]
+  description?: string
+  primary_cta?: { text: string; href: string }
+  secondary_cta?: { text: string; href: string }
+  video_url?: string
+}
+
+const cmsHero = useCmsSection<HeroData>('hero')
+
+const DEFAULT_LINES = [
   ['Plan,', 'run', 'and', 'grow', 'your'],
   ['events', 'in', 'one', 'place'],
 ]
+
+const headline = computed(() => {
+  if (cmsHero.value?.headline_lines && cmsHero.value.headline_lines.length > 0) {
+    return cmsHero.value.headline_lines.map(line => line.split(/\s+/).filter(Boolean))
+  }
+  return DEFAULT_LINES
+})
+
+const description = computed(() => {
+  return cmsHero.value?.description || 'Registration, self check-in, floor plans, meetings and live insights on one connected platform, ready in days.'
+})
+
+const primaryCta = computed(() => {
+  return { text: cmsHero.value?.primary_cta?.text || 'Book a demo', href: '/contact-us' }
+})
+
+const secondaryCta = computed(() => {
+  return cmsHero.value?.secondary_cta || { text: 'Explore the platform', href: '/#platform' }
+})
+
+const videoUrl = computed(() => {
+  return cmsHero.value?.video_url || '/images/hero-bg-video.mp4'
+})
 
 const wordDelay = (index: number) => ({ animationDelay: `${0.05 + index * 0.05}s` })
 
@@ -28,7 +62,7 @@ function scrollToNext() {
   <section id="top" class="hero" aria-labelledby="hero-title">
     <div class="media" aria-hidden="true">
       <video ref="video" class="film" autoplay muted loop playsinline preload="metadata">
-        <source src="/images/hero-bg-video.mp4" type="video/mp4">
+        <source :src="videoUrl" type="video/mp4">
       </video>
       <div class="wash" />
       <div class="shade" />
@@ -37,19 +71,19 @@ function scrollToNext() {
     <div class="hero-content">
       <div class="copy">
         <h1 id="hero-title">
-          <template v-for="(line, lineIndex) in HEADLINE" :key="lineIndex">
+          <template v-for="(line, lineIndex) in headline" :key="lineIndex">
             <template v-for="(word, wordIndex) in line" :key="word">
-              <span class="word"><span :style="wordDelay(lineIndex * HEADLINE[0].length + wordIndex)">{{ word }}</span></span>{{ wordIndex < line.length - 1 ? ' ' : '' }}
+              <span class="word"><span :style="wordDelay(lineIndex * (headline[0] ? headline[0].length : 5) + wordIndex)">{{ word }}</span></span>{{ wordIndex < line.length - 1 ? ' ' : '' }}
             </template>
             <br v-if="lineIndex === 0" class="wide-break">
           </template>
         </h1>
-        <p class="fade-in" style="animation-delay: .45s">Registration, self check-in, floor plans, meetings and live insights on one connected platform, ready in days.</p>
+        <p class="fade-in" style="animation-delay: .45s">{{ description }}</p>
 
         <div class="actions fade-in" style="animation-delay: .55s">
-          <NuxtLink to="/contact-us" class="primary-action">Book a demo</NuxtLink>
-          <NuxtLink to="/#platform" class="text-action">
-            Explore the platform
+          <NuxtLink :to="primaryCta.href" class="primary-action">{{ primaryCta.text }}</NuxtLink>
+          <NuxtLink :to="secondaryCta.href" class="text-action">
+            {{ secondaryCta.text }}
             <Icon name="lucide:arrow-right" aria-hidden="true" />
           </NuxtLink>
         </div>

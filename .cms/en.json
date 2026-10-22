@@ -1,0 +1,318 @@
+{
+  "release": {
+    "uuid": "3673c02a-1d59-4da9-b332-6c8e116e6b12",
+    "number": 1,
+    "built_for": "en",
+    "created_at": "2026-10-21T21:33:39+00:00",
+    "live_at": "2026-10-21T21:33:39+00:00"
+  },
+  "settings": {
+    "phone": "+971 4 000 0000",
+    "social": {
+      "twitter": "https://x.com/expouse",
+      "youtube": "https://youtube.com/@expouse",
+      "facebook": "https://facebook.com/expouse",
+      "linkedin": "https://linkedin.com/company/expouse"
+    },
+    "stores": {
+      "app_store_url": "https://apps.apple.com/app/expouse",
+      "play_store_url": "https://play.google.com/store/apps/details?id=com.expouse"
+    },
+    "address": "Dubai, UAE",
+    "site_url": "https://expouse.com",
+    "languages": [
+      "en"
+    ],
+    "site_name": "EXPOUSE",
+    "sales_email": "sales@expouse.com",
+    "contact_email": "contact@expouse.com"
+  },
+  "navigation": {
+    "header": [
+      {
+        "to": "/#features",
+        "spy": [
+          "features"
+        ],
+        "label": "Features"
+      },
+      {
+        "to": "/#onsite",
+        "spy": [
+          "onsite",
+          "badges"
+        ],
+        "label": "Onsite"
+      },
+      {
+        "to": "/#apps",
+        "spy": [
+          "apps",
+          "branded"
+        ],
+        "label": "Apps"
+      },
+      {
+        "to": "/#pricing",
+        "spy": [
+          "pricing"
+        ],
+        "label": "Pricing"
+      },
+      {
+        "to": "/#faq",
+        "spy": [
+          "faq"
+        ],
+        "label": "FAQ"
+      },
+      {
+        "to": "/news",
+        "page": "/news",
+        "label": "News"
+      },
+      {
+        "to": "/blog",
+        "page": "/blog",
+        "label": "Blog"
+      },
+      {
+        "to": "/gallery",
+        "page": "/gallery",
+        "label": "Gallery"
+      }
+    ],
+    "header_action": {
+      "to": "/#book-demo",
+      "label": "Book a demo"
+    },
+    "footer_columns": [
+      {
+        "links": [
+          {
+            "to": "/#features",
+            "label": "Features"
+          },
+          {
+            "to": "/#onsite",
+            "label": "Onsite & badges"
+          },
+          {
+            "to": "/#badges",
+            "label": "Badge designer"
+          },
+          {
+            "to": "/#floor",
+            "label": "Floor designer"
+          },
+          {
+            "to": "/#apps",
+            "label": "Mobile apps"
+          },
+          {
+            "to": "/#pricing",
+            "label": "Pricing"
+          }
+        ],
+        "title": "Product"
+      },
+      {
+        "links": [
+          {
+            "to": "/news",
+            "label": "News"
+          },
+          {
+            "to": "/blog",
+            "label": "Blog"
+          },
+          {
+            "to": "/gallery",
+            "label": "Media gallery"
+          },
+          {
+            "to": "/#faq",
+            "label": "Frequently asked questions"
+          }
+        ],
+        "title": "Resources"
+      },
+      {
+        "links": [
+          {
+            "to": "/contact-us",
+            "label": "Contact us"
+          },
+          {
+            "to": "/contact-us",
+            "label": "About EXPOUSE"
+          }
+        ],
+        "title": "Company"
+      },
+      {
+        "links": [
+          {
+            "to": "/terms",
+            "label": "Terms of Service"
+          },
+          {
+            "to": "/privacy",
+            "label": "Privacy Policy"
+          }
+        ],
+        "title": "Legal"
+      }
+    ]
+  },
+  "seo": {
+    "og_image": "/og-image.jpg",
+    "default_title": "SEO Defaults",
+    "title_template": "%s | EXPOUSE",
+    "twitter_handle": "@expouse",
+    "default_description": "Event software for exhibitions and conferences: online registration, badge printing, QR check-in, exhibitor leads and an attendee app, in English and Arabic."
+  },
+  "pages": {
+    "/": {
+      "title": "Home",
+      "slug": null,
+      "seo": {
+        "title": "Event Registration, Badge Printing & Check-in Software | EXPOUSE",
+        "og_image": "/og-image.jpg",
+        "description": "Event software for exhibitions and conferences: online registration, badge printing, QR check-in, exhibitor leads and an attendee app, in English and Arabic."
+      },
+      "sections": [
+        {
+          "_id": "hero-1",
+          "data": {
+            "video_url": "/images/hero-bg-video.mp4",
+            "description": "Registration, self check-in, floor plans, meetings and live insights on one connected platform, ready in days.",
+            "primary_cta": {
+              "href": "/#book-demo",
+              "text": "Book a demo"
+            },
+            "secondary_cta": {
+              "href": "/#platform",
+              "text": "Explore the platform"
+            },
+            "headline_lines": [
+              "Plan, run and grow your",
+              "events in one place"
+            ]
+          },
+          "_type": "hero",
+          "is_hidden": false
+        },
+        {
+          "_id": "stats-1",
+          "data": {
+            "stats": [
+              {
+                "label": "Badges printed onsite",
+                "value": "500K+"
+              },
+              {
+                "label": "Check-in uptime",
+                "value": "99.98%"
+              },
+              {
+                "label": "Average badge print time",
+                "value": "< 2s"
+              },
+              {
+                "label": "Countries hosted",
+                "value": "40+"
+              }
+            ]
+          },
+          "_type": "stats",
+          "is_hidden": false
+        },
+        {
+          "_id": "badge-designer-1",
+          "data": {
+            "cta": {
+              "href": "/#badges",
+              "text": "Try badge designer"
+            },
+            "title": "Design badges in minutes, print them in seconds",
+            "points": [
+              "Visual drag-and-drop designer",
+              "Print on arrival via kiosks or desk",
+              "Offline caching for network resilience"
+            ],
+            "eyebrow": "Onsite badge printing",
+            "description": "A visual badge canvas for thermal and desktop printers. Add dynamic QR codes, category colors, and custom fields."
+          },
+          "_type": "badge_designer",
+          "is_hidden": false
+        },
+        {
+          "_id": "floor-designer-1",
+          "data": {
+            "cta": {
+              "href": "/#floor",
+              "text": "Explore floor planner"
+            },
+            "title": "Sell booths faster with dynamic 2D & 3D floor maps",
+            "points": [
+              "CAD/DWG import or draw in browser",
+              "Live booth status (available, reserved, sold)",
+              "Turn-by-turn navigation in attendee app"
+            ],
+            "eyebrow": "Interactive floor plan",
+            "description": "Draw exhibition halls, place booths, assign exhibitors and track traffic in real time."
+          },
+          "_type": "floor_designer",
+          "is_hidden": false
+        },
+        {
+          "_id": "faq-1",
+          "data": {
+            "faqs": [
+              {
+                "a": "Most events with registration, badges and check-in go live within a few days. We help you import your attendee list, set up the badges and train your gate staff.",
+                "q": "How quickly can we launch an event?"
+              },
+              {
+                "a": "Yes. Every event gets its own website, either on an expouse.com address or on your own domain, with your logo, colors and login page. Inside the EXPOUSE app, attendees see your branding too.",
+                "q": "Can we use our own domain and branding?"
+              },
+              {
+                "a": "The scanner app keeps checking people in offline and sends every scan once the connection is back, so nothing is lost. Badge printing does need a connection, so give your kiosks and print desks a stable line.",
+                "q": "What if the venue internet goes down?"
+              },
+              {
+                "a": "All you need is a badge printer and Google Chrome. A self-service kiosk is just a touch-screen PC with a USB QR scanner and a printer. Gates, tablets and other desks can send badges to a print station nearby.",
+                "q": "Which printers and scanners are supported?"
+              },
+              {
+                "a": "Yes. You can import attendees, exhibitors, speakers, sessions and guest lists from Excel or CSV.",
+                "q": "Can we import our existing attendee list?"
+              }
+            ],
+            "title": "Frequently asked questions",
+            "subtitle": "Everything you need to know about getting started with EXPOUSE."
+          },
+          "_type": "faq_section",
+          "is_hidden": false
+        },
+        {
+          "_id": "demo-cta-1",
+          "data": {
+            "email": "contact@expouse.com",
+            "title": "See EXPOUSE on your next event",
+            "subtitle": "Tell us about your event and we will show you around.",
+            "button_text": "Book a 20-min demo"
+          },
+          "_type": "demo_cta",
+          "is_hidden": false
+        }
+      ]
+    }
+  },
+  "collections": [],
+  "media": [],
+  "redirects": [],
+  "alternates": []
+}

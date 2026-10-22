@@ -76,6 +76,7 @@ const HIGHLIGHTS = [
   <FeatureSlider />
   <FeatureSpotlights />
   <BadgeDesigner />
+  <FloorDesigner />
   <MobileApps />
   <BrandedApp />
   <RegionSecurity />
